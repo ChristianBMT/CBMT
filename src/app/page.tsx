@@ -27,7 +27,7 @@ export default function Home() {
             height={100}
           ></Image>
           <div className="absolute top-0 left-0 p-4 text-white text-left">
-            <div className="text-2xl font-bold">Today's Devotion</div>
+            <div className="text-2xl font-bold">Today&apos;s Devotion</div>
             <div className="text-xl">Read and be encouraged</div>
           </div>
           <button className="absolute bottom-0 right-0 m-4 bg-black text-white rounded px-4 py-2 hover:bg-opacity-90 focus:outline-none focus:ring">
