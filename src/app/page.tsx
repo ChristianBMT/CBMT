@@ -19,11 +19,13 @@ export default function Home() {
           Start Your Journey Today
         </div>
         <div className="relative my-10">
-          <img
+          <Image
             className="rounded-xl w-full"
             src="/scenery.jpeg"
             alt="Scenery"
-          />
+            width={100}
+            height={100}
+          ></Image>
           <div className="absolute top-0 left-0 p-4 text-white text-left">
             <div className="text-2xl font-bold">Today's Devotion</div>
             <div className="text-xl">Read and be encouraged</div>
