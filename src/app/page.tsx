@@ -31,6 +31,7 @@ export default function Home() {
             <div className="text-xl">Read and be encouraged</div>
           </div>
           <Button
+            onClick={() => router.push("/posts/2023/12/15")}
             className="absolute bottom-0 right-0 m-4 bg-black text-white rounded px-4 py-2 hover:bg-opacity-90 focus:outline-none focus:ring"
             variant="outline"
           >
