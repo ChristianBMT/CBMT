@@ -21,7 +21,7 @@ export function Navbar() {
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="p-8 border-r-0">
+      <SheetContent side="left" className="p-4 border-r-0">
         <SheetHeader>
           <SheetTitle>Welcome back</SheetTitle>
         </SheetHeader>

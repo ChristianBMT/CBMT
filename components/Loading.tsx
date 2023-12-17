@@ -21,7 +21,7 @@ export function Loading() {
     setTimeout(() => {
       setShouldDisplay(false);
     }, 500);
-  });
+  }, []);
 
   return (
     <div
