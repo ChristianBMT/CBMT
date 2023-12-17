@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Loading } from "@/components/Loading";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Navbar } from "@/components/navigation/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Loading />
+          <Navbar />
           {children}
           <SpeedInsights />
         </ThemeProvider>

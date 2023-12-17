@@ -1,6 +1,7 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 import {
   Sheet,
   SheetClose,
@@ -14,6 +15,7 @@ import { Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export function Navbar() {
+  const router = useRouter();
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -23,9 +25,9 @@ export function Navbar() {
       </SheetTrigger>
       <SheetContent side="left" className="p-4 border-r-0">
         <SheetHeader>
-          <SheetTitle>Welcome back</SheetTitle>
+          <SheetTitle onClick={() => router.push("/")}>Welcome back</SheetTitle>
         </SheetHeader>
-        <SheetFooter className="items-end pb-4 h-full justify-start sm:justify-start flex-row">
+        <SheetFooter className="items-end pb-6 h-full justify-start sm:justify-start flex-row">
           <ThemeToggle></ThemeToggle>
         </SheetFooter>
       </SheetContent>

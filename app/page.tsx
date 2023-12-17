@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Navbar } from "@/components/navigation/Navbar1";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -19,7 +18,6 @@ export default function Home() {
 
   return (
     <div className="min-h-100dvh p-3">
-      <Navbar />
       <main className="flex flex-col mx-auto max-w-[500px] px-2 py-2">
         <h1 className="font-bold text-4xl">
           Transforming your walk with Christ
@@ -39,7 +37,7 @@ export default function Home() {
           </div>
           <div className="absolute p-4 bottom-0 right-0">
             <Button
-              onClick={() => router.push(`/posts/${postDate}`)}
+              onClick={() => router.push(`/devotions/${postDate}`)}
               variant={"outline"}
             >
               Read
