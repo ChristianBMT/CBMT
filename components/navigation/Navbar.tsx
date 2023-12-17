@@ -19,7 +19,7 @@ export function Navbar() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" className="mt-2 ml-2">
           <Menu />
         </Button>
       </SheetTrigger>
