@@ -8,6 +8,7 @@ datasource db {
 }
 
 model Users {
-  address String  @id @unique
+  id      String  @id @default(uuid())
+  address String  @unique
   paid    Boolean @default(false)
 }
