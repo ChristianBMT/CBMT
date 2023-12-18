@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Loading } from "@/components/Loading";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Navbar from "@/components/navigation/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "h-[100dvh]")}>
+      <body className={cn(inter.className, "h-[100dvh] ")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -30,8 +31,9 @@ export default function RootLayout({
         >
           <Loading />
           <Navbar />
-          <div className="p-5">{children}</div>
+          {children}
           <SpeedInsights />
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

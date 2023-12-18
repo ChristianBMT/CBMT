@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -52,9 +53,20 @@ export default function Navbar() {
         onInteractOutside={() => closeNav()}
       >
         <SheetHeader>
-          <SheetTitle onClick={() => navigateTo("/")}>Welcome back</SheetTitle>
+          <SheetTitle onClick={() => navigateTo("/")} className="text-xl">
+            <div className="flex gap-5 items-center">
+              <Image
+                src="/DailyImage.webp"
+                alt=""
+                width={500}
+                height={500}
+                className="aspect-square w-20"
+              />
+              <p>ChristBMT</p>
+            </div>
+          </SheetTitle>
         </SheetHeader>
-        <SheetFooter className="items-end pb-6 h-full justify-start sm:justify-start flex-row">
+        <SheetFooter className="items-end h-[calc(100%-80px)] justify-start sm:justify-start flex-row">
           <ThemeToggle></ThemeToggle>
         </SheetFooter>
       </SheetContent>

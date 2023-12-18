@@ -26,11 +26,11 @@ export function Loading() {
   return (
     <div
       className={cn(
-        "absolute z-90 bg-black h-[100dvh] w-full transition-opacity ease-in duration-500 p-5 flex flex-col justify-center items-center",
+        "absolute z-50 bg-black h-[100dvh] w-full transition-opacity ease-in duration-500 p-5 flex flex-col justify-center items-center",
         shouldDisplay ? "" : "hiding"
       )}
     >
-      <h1>Welcome To CBMT</h1>
+      <h1>Welcome To ChristBMT</h1>
       <p>Pokemon</p>
     </div>
   );

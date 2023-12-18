@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 
 export async function GET(req: Request) {
   try {
-    const allDevotion = await db.users.findMany();
+    const allDevotion = await db.devotion.findMany();
     return NextResponse.json(allDevotion);
   } catch (error) {
     console.log(error);
