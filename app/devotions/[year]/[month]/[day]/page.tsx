@@ -181,7 +181,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
             {typeof devotionObj.content == "string" ? (
               <p>{devotionObj.content}</p>
             ) : (
-              devotionObj.content.map((paragraph) => <p>{paragraph}</p>)
+              devotionObj.content.map((paragraph, idx) => <p key={"DevotionParagraph"+idx}>{paragraph}</p>)
             )}
           </div>
         </section> : <h1 className="text-2xl font-bold text-center p-3">No Content Found</h1>}
