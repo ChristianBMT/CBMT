@@ -5,12 +5,10 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { format } from "date-fns";
 import { CalendarIcon, PlayIcon } from "lucide-react";
-import { ShareIcon } from "@heroicons/react/24/solid";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-
 import {
   Popover,
   PopoverContent,
@@ -23,6 +21,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ShareButton from "@/components/ShareButton";
 
 type DevotionPageParams = {
   params: {
@@ -41,8 +40,13 @@ type DevotionObject = {
 };
 
 export default function DevotionPage({ params }: DevotionPageParams) {
+  const [currentLink, setCurrentLink] = useState<string>("");
   const { toast } = useToast();
   const router = useRouter();
+
+  useEffect(() => {
+    setCurrentLink(window.location.href);
+  }, []);
 
   const [devotionObj, setDevotionObj] = useState<DevotionObject>({
     id: "",
@@ -70,7 +74,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
       title: data.title,
       author: data.author.name,
       authorAbout: data.author.about,
-      content: data.content.split("   "),
+      content: data.content.split("  "),
     });
   }
 
@@ -123,7 +127,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
               <Button
                 variant={"ghost"}
                 className={cn(
-                  "w-[220px] text-left font-normal",
+                  "w-[200px] text-left font-normal",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -143,48 +147,54 @@ export default function DevotionPage({ params }: DevotionPageParams) {
               />
             </PopoverContent>
           </Popover>
-          <Button variant={"ghost"}>
-            <ShareIcon className="w-4 h-4" />
-          </Button>
+          <ShareButton content={currentLink} />
         </div>
-        {devotionObj.content ? <section className="p-2">
-          <h2 className="font-bold text-xl">{devotionObj.title}</h2>
-          <p className="text-sm">
-            By
-            <HoverCard>
-              <HoverCardTrigger asChild>
-                <Button
-                  variant={"ghost"}
-                  className="h-fit px-1.5 underline underline-offset-2"
-                >
-                  {devotionObj.author}
-                </Button>
-              </HoverCardTrigger>
-              <HoverCardContent className="w-80">
-                <div className="flex justify-between space-x-4">
-                  <Avatar>
-                    {/* <AvatarImage src="https://github.com/vercel.png" /> */}
-                    <AvatarFallback></AvatarFallback>
-                  </Avatar>
-                  <div className="space-y-1">
-                    <h4 className="text-sm font-semibold">
-                      {devotionObj.author}
-                    </h4>
-                    <p className="text-sm">{devotionObj.authorAbout}</p>
+        {devotionObj.content ? (
+          <section className="p-2">
+            <h2 className="font-bold text-xl">{devotionObj.title}</h2>
+            <p className="text-sm">
+              By
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Button
+                    variant={"ghost"}
+                    className="h-fit px-1.5 underline underline-offset-2"
+                  >
+                    {devotionObj.author}
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80">
+                  <div className="flex justify-between space-x-4">
+                    <Avatar>
+                      {/* <AvatarImage src="https://github.com/vercel.png" /> */}
+                      <AvatarFallback></AvatarFallback>
+                    </Avatar>
+                    <div className="space-y-1">
+                      <h4 className="text-sm font-semibold">
+                        {devotionObj.author}
+                      </h4>
+                      <p className="text-sm">{devotionObj.authorAbout}</p>
+                    </div>
                   </div>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-          </p>
+                </HoverCardContent>
+              </HoverCard>
+            </p>
 
-          <div className="flex flex-col gap-2">
-            {typeof devotionObj.content == "string" ? (
-              <p>{devotionObj.content}</p>
-            ) : (
-              devotionObj.content.map((paragraph, idx) => <p key={"DevotionParagraph"+idx}>{paragraph}</p>)
-            )}
-          </div>
-        </section> : <h1 className="text-2xl font-bold text-center p-3">No Content Found</h1>}
+            <div className="flex flex-col gap-2 mt-1">
+              {typeof devotionObj.content == "string" ? (
+                <p>{devotionObj.content}</p>
+              ) : (
+                devotionObj.content.map((paragraph, idx) => (
+                  <p key={"DevotionParagraph" + idx}>{paragraph}</p>
+                ))
+              )}
+            </div>
+          </section>
+        ) : (
+          <h1 className="text-2xl font-bold text-center p-3">
+            No Content Found
+          </h1>
+        )}
       </div>
     </main>
   );

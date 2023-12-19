@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Loading } from "@/components/Loading";
+import Loading  from "@/components/Loading";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Navbar from "@/components/navigation/Navbar";
 import { Toaster } from "@/components/ui/toaster";
