@@ -43,9 +43,9 @@ export default function Home() {
       </div>
       <h3 className="font-semibold text-xl">Browse Devotion Plans</h3>
       <div className="grid grid-cols-2 my-3 gap-4">
-        {[...new Array(4)].map((val, idx) => {
+        {[...new Array(4)].map((_, idx) => {
           return (
-            <div className="">
+            <div key={"DevotionImage" + idx}>
               <Image
                 className="w-full rounded-lg shadow-xl aspect-[3/2] object-cover"
                 src={`/Devotion${idx + 1}.jpeg`}
