@@ -29,7 +29,7 @@ export default function Home() {
           alt="today"
         />
         <div className="absolute top-0 left-0 p-4 text-white text-left">
-          <div className="text-2xl font-bold">Today's Devotion</div>
+          <div className="text-2xl font-bold">Today&apos;s Devotion</div>
           <div className="text-xl">Read and be encouraged</div>
         </div>
         <div className="absolute p-4 bottom-0 right-0">
