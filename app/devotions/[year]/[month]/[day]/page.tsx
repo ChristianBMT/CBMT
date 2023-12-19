@@ -17,7 +17,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useToast } from "@/components/ui/use-toast";
-import { da } from "date-fns/locale";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type DevotionPageParams = {
   params: {
@@ -28,16 +33,24 @@ type DevotionPageParams = {
 };
 
 type DevotionObject = {
+  id: string;
   title: string;
   author: string;
-  content: string;
+  authorAbout: string;
+  content: string | string[];
 };
 
 export default function DevotionPage({ params }: DevotionPageParams) {
   const { toast } = useToast();
   const router = useRouter();
 
-  const [devotionObj, setDevotionObj] = useState<DevotionObject | Object>({});
+  const [devotionObj, setDevotionObj] = useState<DevotionObject>({
+    id: "",
+    title: "",
+    author: "",
+    authorAbout: "",
+    content: "",
+  });
 
   const [date, setDate] = useState<Date | undefined>(
     new Date(`${params.year}/${params.month}/${params.day}`)
@@ -52,7 +65,13 @@ export default function DevotionPage({ params }: DevotionPageParams) {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions/${params.year}/${params.month}/${params.day}`
     );
     const data = await response.json();
-    console.log(data[0]);
+    setDevotionObj({
+      id: data.id,
+      title: data.title,
+      author: data.author.name,
+      authorAbout: data.author.about,
+      content: data.content.split("   "),
+    });
   }
 
   useEffect(() => {
@@ -128,8 +147,45 @@ export default function DevotionPage({ params }: DevotionPageParams) {
             <ShareIcon className="w-4 h-4" />
           </Button>
         </div>
+        {devotionObj.content ? <section className="p-2">
+          <h2 className="font-bold text-xl">{devotionObj.title}</h2>
+          <p className="text-sm">
+            By
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button
+                  variant={"ghost"}
+                  className="h-fit px-1.5 underline underline-offset-2"
+                >
+                  {devotionObj.author}
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80">
+                <div className="flex justify-between space-x-4">
+                  <Avatar>
+                    {/* <AvatarImage src="https://github.com/vercel.png" /> */}
+                    <AvatarFallback></AvatarFallback>
+                  </Avatar>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-semibold">
+                      {devotionObj.author}
+                    </h4>
+                    <p className="text-sm">{devotionObj.authorAbout}</p>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+          </p>
+
+          <div className="flex flex-col gap-2">
+            {typeof devotionObj.content == "string" ? (
+              <p>{devotionObj.content}</p>
+            ) : (
+              devotionObj.content.map((paragraph) => <p>{paragraph}</p>)
+            )}
+          </div>
+        </section> : <h1 className="text-2xl font-bold text-center p-3">No Content Found</h1>}
       </div>
-      {params.year}/{params.month}/{params.day}
     </main>
   );
 }

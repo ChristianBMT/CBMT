@@ -19,8 +19,11 @@ export async function GET(req: Request, { params }: DevotionPageParams) {
       where: {
         devotion_date: currentDate,
       },
+      include: {
+        author: true,
+      },
     });
-    return NextResponse.json(currentDevotion);
+    return NextResponse.json(currentDevotion[0]);
   } catch (error) {
     console.log(error);
     return new NextResponse("Internal Server Error", { status: 500 });
