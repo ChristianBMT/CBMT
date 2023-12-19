@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import "@/app/loading.css";
 
-export function Loading() {
+export default function Loading() {
   const [shouldDisplay, setShouldDisplay] = useState<boolean>(false);
 
   useEffect(() => {
