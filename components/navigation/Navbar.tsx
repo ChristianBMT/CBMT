@@ -66,8 +66,31 @@ export default function Navbar() {
             </div>
           </SheetTitle>
         </SheetHeader>
-        <SheetFooter className="items-end h-[calc(100%-80px)] justify-start sm:justify-start flex-row">
-          <ThemeToggle></ThemeToggle>
+        <SheetFooter className="flex flex-col h-[calc(100%-80px)] items-start justify-start sm:justify-start pt-4 gap-3">
+          <Button
+            variant={"ghost"}
+            className="w-full"
+            onClick={() => navigateTo("/vision")}
+          >
+            Vision
+          </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full"
+            onClick={() => navigateTo("/aboutus")}
+          >
+            About Us
+          </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full"
+            onClick={() => navigateTo("/contact")}
+          >
+            Contacts Us
+          </Button>
+          <div className="mt-auto">
+            <ThemeToggle></ThemeToggle>
+          </div>
         </SheetFooter>
       </SheetContent>
     </Sheet>

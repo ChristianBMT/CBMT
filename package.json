@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
+    "@googleapis/docs": "^3.0.0",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.7.0",
@@ -26,6 +28,7 @@
     "clsx": "^2.0.0",
     "code-block-writer": "^12.0.0",
     "date-fns": "^2.30.0",
+    "googleapis": "^105.0.0",
     "lucide-react": "^0.298.0",
     "next": "14.0.4",
     "next-share": "^0.27.0",
