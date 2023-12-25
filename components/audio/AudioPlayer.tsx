@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { PlayIcon, PauseIcon } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import ReactPlayer from "react-player";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import Duration from "./Duration";
+import { FaPlay, FaPause } from "react-icons/fa6";
 
 type AudioPlayerProps = {
   audio_file: string;
@@ -19,6 +19,7 @@ type AudioObj = {
 };
 
 export default function AudioPlayer({ audio_file }: AudioPlayerProps) {
+  const [audioPlayed, setAudioPlayed] = useState<boolean>(false);
   const playerRef = useRef<ReactPlayer>(null);
 
   const [audio, setAudio] = useState<string>("");
@@ -74,6 +75,7 @@ export default function AudioPlayer({ audio_file }: AudioPlayerProps) {
 
   function changeIsPlaying() {
     setIsPlaying(!isPlaying);
+    setAudioPlayed(true);
   }
 
   let valueChangeHandler = (value: number[]) => {
@@ -98,24 +100,24 @@ export default function AudioPlayer({ audio_file }: AudioPlayerProps) {
     <>
       <Button variant={"ghost"} onClick={() => changeIsPlaying()} ref={ref}>
         {isPlaying ? (
-          <PauseIcon className="w-4 h-4" />
+          <FaPause className="w-4 h-4" />
         ) : (
-          <PlayIcon className="w-4 h-4" />
+          <FaPlay className="w-4 h-4" />
         )}
       </Button>
 
       <div
         className={cn(
           "flex items-center p-2 fixed w-full h-16 border-t bg-white dark:bg-black bottom-0 left-0 right-0",
-          isPlaying || changeValue || !inView ? "" : "hidden"
+          audioPlayed || !inView ? "" : "hidden"
         )}
       >
         <div className="max-w-[500px] w-full mx-auto flex items-center">
           <Button variant={"ghost"} onClick={() => changeIsPlaying()}>
             {isPlaying ? (
-              <PauseIcon className="w-4 h-4" />
+              <FaPause className="w-4 h-4" />
             ) : (
-              <PlayIcon className="w-4 h-4" />
+              <FaPlay className="w-4 h-4" />
             )}
           </Button>
           <Slider

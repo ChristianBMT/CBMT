@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 
@@ -130,7 +129,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     <main className="min-h-100dvh flex flex-col mx-auto max-w-[500px]  py-2">
       <ImageCred src="/Devotion1.jpeg" className="w-full aspect-[3/2]" />
       <div className="p-2 pb-[3.5rem]">
-        <div className="flex w-full justify-between">
+        <div className="flex w-full justify-between pb-0.5">
           <AudioPlayer audio_file={devotionObj.audio_file} />
           <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
             <PopoverTrigger asChild>
@@ -147,6 +146,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
+                required
                 mode="single"
                 selected={date}
                 onSelect={setDate}
