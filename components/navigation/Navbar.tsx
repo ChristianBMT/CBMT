@@ -19,6 +19,8 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export default function Navbar() {
   const [open, setOpen] = useState<boolean>(false);
+  const today = new Date();
+
   const router = useRouter();
 
   function navigateTo(link: string) {
@@ -63,12 +65,55 @@ export default function Navbar() {
                 height={500}
                 className="aspect-square w-20"
               />
-              <p>ChristBMT</p>
+              <p>Christ in BMT</p>
             </div>
           </SheetTitle>
         </SheetHeader>
-        <SheetFooter className="items-end h-[calc(100%-80px)] justify-start sm:justify-start flex-row">
-          <ThemeToggle></ThemeToggle>
+        <SheetFooter className="flex flex-col w-full sm:flex-col items-end h-[calc(100%-80px)] justify-start sm:justify-start gap-2 pt-3">
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start sm:justify-center"
+            onClick={() => navigateTo("/vision")}
+          >
+            Vision
+          </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start sm:justify-center"
+            onClick={() =>
+              navigateTo(
+                `/devotions/${today.getFullYear()}/${
+                  today.getMonth() + 1
+                }/${today.getDate()}`
+              )
+            }
+          >
+            Daily Devotion
+          </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start sm:justify-center"
+            onClick={() => navigateTo("/discover")}
+          >
+            Discover
+          </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start sm:justify-center"
+            onClick={() => navigateTo("/aboutus")}
+          >
+            About Us
+          </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start sm:justify-center"
+            onClick={() => navigateTo("/contact")}
+          >
+            Contacts Us
+          </Button>
+          <div className="w-full mt-auto">
+            <ThemeToggle></ThemeToggle>
+          </div>
         </SheetFooter>
       </SheetContent>
     </Sheet>
