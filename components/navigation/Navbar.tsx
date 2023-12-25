@@ -12,6 +12,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetDescription,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
