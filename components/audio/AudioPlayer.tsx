@@ -73,6 +73,14 @@ export default function AudioPlayer({ audio_file }: AudioPlayerProps) {
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (audioPlayed && !isPlaying) {
+      setTimeout(() => {
+        setAudioPlayed(false);
+      }, 2500);
+    }
+  }, [isPlaying]);
+
   function changeIsPlaying() {
     setIsPlaying(!isPlaying);
     setAudioPlayed(true);
@@ -108,8 +116,8 @@ export default function AudioPlayer({ audio_file }: AudioPlayerProps) {
 
       <div
         className={cn(
-          "flex items-center p-2 fixed w-full h-16 border-t bg-white dark:bg-black bottom-0 left-0 right-0",
-          audioPlayed || !inView ? "" : "hidden"
+          "flex items-center p-2 fixed w-full h-16 border-t bg-white dark:bg-black bottom-0 left-0 right-0 transition-opacity duration-300",
+          audioPlayed || !inView ? "opacity-1" : "opacity-0"
         )}
       >
         <div className="max-w-[500px] w-full mx-auto flex items-center">
