@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { format } from "date-fns";
-import { CalendarIcon, PlayIcon } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,16 @@ import {
 } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ShareButton from "@/components/ShareButton";
+import AudioPlayer from "@/components/audio/AudioPlayer";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import ImageCred from "@/components/image/ImageCred";
 
 type DevotionPageParams = {
   params: {
@@ -36,7 +46,9 @@ type DevotionObject = {
   title: string;
   author: string;
   authorAbout: string;
+  audio_file: string;
   content: string | string[];
+  prayer: string;
 };
 
 export default function DevotionPage({ params }: DevotionPageParams) {
@@ -53,7 +65,9 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     title: "",
     author: "",
     authorAbout: "",
+    audio_file: "",
     content: "",
+    prayer: "",
   });
 
   const [date, setDate] = useState<Date | undefined>(
@@ -69,12 +83,16 @@ export default function DevotionPage({ params }: DevotionPageParams) {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions/${params.year}/${params.month}/${params.day}`
     );
     const data = await response.json();
+    console.log(data);
+
     setDevotionObj({
       id: data.id,
       title: data.title,
       author: data.author.name,
       authorAbout: data.author.about,
+      audio_file: data.audio_file,
       content: data.content.split("  "),
+      prayer: data.prayer,
     });
   }
 
@@ -110,18 +128,10 @@ export default function DevotionPage({ params }: DevotionPageParams) {
 
   return (
     <main className="min-h-100dvh flex flex-col mx-auto max-w-[500px]  py-2">
-      <Image
-        src="/Devotion1.jpeg"
-        alt=""
-        width={500}
-        height={500}
-        className="w-full aspect-[3/2]"
-      />
-      <div className="p-2">
+      <ImageCred src="/Devotion1.jpeg" className="w-full aspect-[3/2]" />
+      <div className="p-2 pb-[3.5rem]">
         <div className="flex w-full justify-between">
-          <Button variant={"ghost"}>
-            <PlayIcon className="w-4 h-4" />
-          </Button>
+          <AudioPlayer audio_file={devotionObj.audio_file} />
           <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
             <PopoverTrigger asChild>
               <Button
@@ -150,49 +160,60 @@ export default function DevotionPage({ params }: DevotionPageParams) {
           <ShareButton content={currentLink} />
         </div>
         {devotionObj.content ? (
-          <section className="p-2">
-            <h2 className="font-bold text-xl">{devotionObj.title}</h2>
-            <p className="text-sm">
-              By
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <Button
-                    variant={"ghost"}
-                    className="h-fit px-1.5 underline underline-offset-2"
-                  >
-                    {devotionObj.author}
-                  </Button>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-80">
-                  <div className="flex justify-between space-x-4">
-                    <Avatar>
-                      {/* <AvatarImage src="https://github.com/vercel.png" /> */}
-                      <AvatarFallback></AvatarFallback>
-                    </Avatar>
-                    <div className="space-y-1">
-                      <h4 className="text-sm font-semibold">
-                        {devotionObj.author}
-                      </h4>
-                      <p className="text-sm">{devotionObj.authorAbout}</p>
+          <>
+            <section className="p-2">
+              <h2 className="font-bold text-xl">{devotionObj.title}</h2>
+              <p className="text-sm">
+                <span>By</span>
+                <HoverCard>
+                  <HoverCardTrigger asChild>
+                    <Button
+                      variant={"ghost"}
+                      className="h-fit px-1.5 underline underline-offset-2"
+                    >
+                      {devotionObj.author}
+                    </Button>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-80">
+                    <div className="flex justify-between space-x-4">
+                      <Avatar>
+                        {/* <AvatarImage src="https://github.com/vercel.png" /> */}
+                        <AvatarFallback></AvatarFallback>
+                      </Avatar>
+                      <div className="space-y-1">
+                        <h4 className="text-sm font-semibold">
+                          {devotionObj.author}
+                        </h4>
+                        <p className="text-sm">{devotionObj.authorAbout}</p>
+                      </div>
                     </div>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
-            </p>
-
-            <div className="flex flex-col gap-2 mt-1">
-              {typeof devotionObj.content == "string" ? (
-                <p>{devotionObj.content}</p>
-              ) : (
-                devotionObj.content.map((paragraph, idx) => (
-                  <p key={"DevotionParagraph" + idx}>{paragraph}</p>
-                ))
-              )}
-            </div>
-          </section>
+                  </HoverCardContent>
+                </HoverCard>
+              </p>
+              <div className="flex flex-col gap-2 mt-1">
+                {typeof devotionObj.content == "string" ? (
+                  <p>{devotionObj.content}</p>
+                ) : (
+                  devotionObj.content.map((paragraph, idx) => (
+                    <p key={"DevotionParagraph" + idx}>{paragraph}</p>
+                  ))
+                )}
+              </div>
+            </section>
+            <Card className="w-full my-5">
+              <CardHeader>
+                <CardTitle className="text-xl text-center">
+                  Reflect & Pray
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="italic">{devotionObj.prayer}</CardContent>
+            </Card>
+          </>
         ) : (
-          <h1 className="text-2xl font-bold text-center p-3">
-            No Content Found
+          <h1 className="text-xl font-bold text-center p-5">
+            Currently under trial.
+            <br />
+            More content coming soon!
           </h1>
         )}
       </div>
