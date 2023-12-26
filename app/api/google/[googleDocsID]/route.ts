@@ -37,25 +37,34 @@ export async function GET(req: Request, { params }: GooglePageParams) {
 
     let outputString = "";
 
+    console.log(docsBody);
+
     for (let body of docsBody) {
-      for (let elements of body.paragraph?.elements || []) {
-        outputString += elements.textRun?.content;
+      for (let elements of body.table?.tableRows || []) {
+        // outputString += elements.textRun?.content;
+        for (let cell of elements.tableCells || []) {
+          for (let e of cell.content || []) {
+            for (let para of e.paragraph?.elements || []) {
+              console.log(para.textRun?.content);
+            }
+          }
+        }
       }
     }
 
     // console.log(outputString);
 
-    const doc = new GoogleSpreadsheet(
-      process.env.GOOGLE_SHEETS_ID || "",
-      serviceAccountAuth
-    );
+    // const doc = new GoogleSpreadsheet(
+    //   process.env.GOOGLE_SHEETS_ID || "",
+    //   serviceAccountAuth
+    // );
 
-    await doc.loadInfo();
-    let sheet = doc.sheetsByTitle["Devotions"];
-    console.log(sheet);
+    // await doc.loadInfo();
+    // let sheet = doc.sheetsByTitle["Devotions"];
+    // console.log(sheet);
 
-    let rows = await sheet.getRows();
-    console.log(rows);
+    // let rows = await sheet.getRows();
+    // console.log(rows);
 
     // const auth = await google.auth.getClient({
     //   scopes: [
