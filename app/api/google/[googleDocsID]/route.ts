@@ -33,19 +33,29 @@ export async function GET(req: Request, { params }: GooglePageParams) {
       documentId: params.googleDocsID,
     });
 
-    console.log(response.data.body?.content);
+    const docsBody = response.data.body?.content || [];
+
+    let outputString = "";
+
+    for (let body of docsBody) {
+      for (let elements of body.paragraph?.elements || []) {
+        outputString += elements.textRun?.content;
+      }
+    }
+
+    // console.log(outputString);
 
     const doc = new GoogleSpreadsheet(
-      "1qhZD5cHCHQN8gnnXw1tS2fxdMU_IK5okiXRKxFiB1pI",
+      process.env.GOOGLE_SHEETS_ID || "",
       serviceAccountAuth
     );
 
     await doc.loadInfo();
-    console.log(doc.title);
-    // let sheet = doc.sheetsByIndex[0];
+    let sheet = doc.sheetsByTitle["Devotions"];
+    console.log(sheet);
 
-    // let rows = await sheet.getRows();
-    // console.log(rows);
+    let rows = await sheet.getRows();
+    console.log(rows);
 
     // const auth = await google.auth.getClient({
     //   scopes: [
@@ -116,7 +126,7 @@ export async function GET(req: Request, { params }: GooglePageParams) {
     //   await docsClient.documents.get()
     // https://docs.googleapis.com/v1/documents/{documentId}
     // );
-    return NextResponse.json({ message: "hi" });
+    return NextResponse.json({ message: outputString });
   } catch (error) {
     console.log(error);
     return new NextResponse("Internal Server Error", { status: 500 });
