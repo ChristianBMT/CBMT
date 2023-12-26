@@ -18,6 +18,8 @@ model Devotion {
   content        String
   prayer         String?
 
+  audio_file String?
+
   devotion_date String
   Devotion_Tag  Devotion_Tag[]
 
