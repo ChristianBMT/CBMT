@@ -52,8 +52,6 @@ Today's devotion is taken from ${book} Chapter ${chapter} Verse ${verse}.
 .
 .
 .
-.
-.
 "${bible_verse}"
 .
 .
