@@ -87,8 +87,8 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     setDevotionObj({
       id: data.id,
       title: data.title,
-      author: data.author.name,
-      authorAbout: data.author.about,
+      author: data.author,
+      authorAbout: data.author_about,
       audio_file: data.audio_file,
       content: data.content.split("  "),
       prayer: data.prayer,
