@@ -11,32 +11,67 @@ const voice = new ElevenLabs({
 type DevotionAudioBody = {
   id: string;
   content: string;
+  author: string;
   prayer: string;
   title: string;
   devotion_date: string;
+  verse_id: string;
+  bible_verse: string;
 };
 
 export async function POST(req: Request) {
   try {
-    const { id, content, prayer, title, devotion_date }: DevotionAudioBody =
-      await req.json();
+    const {
+      id,
+      content,
+      author,
+      prayer,
+      title,
+      devotion_date,
+      verse_id,
+      bible_verse,
+    }: DevotionAudioBody = await req.json();
     let cleanedTitle = title
       .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
       .replace(/\s{2,}/g, " ");
 
     const fileName = `./public/${devotion_date}_${cleanedTitle}.mp3`;
+    let verse_id_split = verse_id.split(" ");
+    const book = verse_id_split.slice(0, verse_id_split.length - 1).join(" ");
+    const chapter_verse = verse_id_split[verse_id_split.length - 1];
+    const [chapter, verse] = chapter_verse.split(":");
     const voiceResponse = await voice.textToSpeech({
       fileName: fileName,
-      textInput: `${content}
+      textInput: `${title}
+By ${author}
+Today's devotion is taken from ${book} Chapter ${chapter} Verse ${verse}.
 .
 .
 .
 .
 .
-Reflect & Pray
+.
+.
+"${bible_verse}"
+.
+.
+.
+.
+.
+.
+.
+${content}
+.
+.
+.
+.
+.
+.
+.
+Let's Play
 ${prayer}`,
-      stability: 0.5,
-      similarityBoost: 0.75,
+      stability: 0.4,
+      similarityBoost: 0.8,
     });
     if (voiceResponse.status != "ok") {
       return new NextResponse("ElevenLabs Error", { status: 500 });

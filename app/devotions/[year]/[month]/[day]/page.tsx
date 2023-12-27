@@ -53,9 +53,12 @@ type DevotionObject = {
 type DevotionAudioBody = {
   id: string;
   content: string;
+  author: string;
   prayer: string;
   title: string;
   devotion_date: string;
+  verse_id: string;
+  bible_verse: string;
 };
 
 export default function DevotionPage({ params }: DevotionPageParams) {
@@ -92,14 +95,18 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     const data = await response.json();
     console.log(data);
 
-    if (data.audio_file == null) {
+    if (data.content && data.audio_file == null) {
       const body: DevotionAudioBody = {
         id: data.id,
         title: data.title,
         content: data.content,
+        author: data.author,
         prayer: data.prayer,
+        verse_id: data.verse_id,
+        bible_verse: data.bible_verse,
         devotion_date: `${params.year}-${params.month}-${params.day}`,
       };
+      console.log("PROCESSING AUDIO");
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions/audio`,
         {
