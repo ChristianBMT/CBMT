@@ -19,9 +19,6 @@ export async function GET(req: Request, { params }: DevotionPageParams) {
       where: {
         devotion_date: currentDate,
       },
-      include: {
-        author: true,
-      },
     });
     return NextResponse.json(currentDevotion[0]);
   } catch (error) {

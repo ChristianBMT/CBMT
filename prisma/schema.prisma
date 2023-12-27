@@ -11,39 +11,33 @@ model Devotion {
   id    String @id @default(uuid())
   title String
 
-  author_id String
-  author    Author @relation(fields: [author_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  author       String
+  author_about String
 
-  bible_verse_id String
-  content        String
-  prayer         String?
+  verse_id    String
+  bible_verse String
+  content     String
+  prayer      String?
+
+  docs String @unique
 
   audio_file String?
 
-  devotion_date String
+  devotion_date String         @unique
   Devotion_Tag  Devotion_Tag[]
-
-  @@index([author_id])
 }
 
 model Tag {
   id           String         @id @default(uuid())
-  name         String
-  description  String?
+  name         String         @unique
   Devotion_Tag Devotion_Tag[]
 }
 
 model Devotion_Tag {
-  id          String   @id @default(uuid())
   devotion_id String
-  devotion    Devotion @relation(fields: [devotion_id], references: [id])
   tag_id      String
-  tag         Tag      @relation(fields: [tag_id], references: [id])
-}
+  tag         Tag       @relation(fields: [tag_id], references: [id])
+  Devotion    Devotion? @relation(fields: [devotion_id], references: [id])
 
-model Author {
-  id       String     @id @default(uuid())
-  name     String
-  about    String?    @default("")
-  Devotion Devotion[]
+  @@id([devotion_id, tag_id])
 }
