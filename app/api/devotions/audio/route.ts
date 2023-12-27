@@ -44,6 +44,8 @@ export async function POST(req: Request) {
       fileName: fileName,
       textInput: `${title}
 By ${author}
+.
+.
 Today's devotion is taken from ${book} Chapter ${chapter} Verse ${verse}.
 .
 .
