@@ -68,7 +68,7 @@ ${content}
 .
 .
 .
-Let's Play
+Let's Pray!
 ${prayer}`,
       stability: 0.4,
       similarityBoost: 0.8,
