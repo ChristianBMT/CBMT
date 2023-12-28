@@ -123,16 +123,35 @@ export async function POST(req: Request) {
     ).then((response) => response.json())
   );
 
+  // try {
+  //   const results: VerseData[] = await Promise.all(fetchPromises);
+
+  //   // Concatenating all results into a single object
+  //   const concatenatedResult = results.reduce((combined, result) => {
+  //     combined.push(result);
+  //     return combined;
+  //   }, [] as VerseData[]);
+
+  //   return new NextResponse(JSON.stringify(concatenatedResult), {
+  //     status: 200,
+  //   });
+  // } catch (error) {
+  //   console.error("Error fetching Bible verses", error);
+  //   return new NextResponse("Failed to fetch Bible verses", { status: 500 });
+  // }
+
   try {
-    const results: VerseData[] = await Promise.all(fetchPromises);
+    const results = await Promise.all(fetchPromises);
 
-    // Concatenating all results into a single object
-    const concatenatedResult = results.reduce((combined, result) => {
-      combined.push(result);
-      return combined;
-    }, [] as VerseData[]);
+    // Concatenating verses with their number
+    const concatenatedVerses = results.reduce(
+      (combined, { verseId, verse }) => {
+        return combined + ` ${verseId}: ${verse}`;
+      },
+      ""
+    );
 
-    return new NextResponse(JSON.stringify(concatenatedResult), {
+    return new NextResponse(JSON.stringify({ concatenatedVerses }), {
       status: 200,
     });
   } catch (error) {
