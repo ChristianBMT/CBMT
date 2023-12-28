@@ -12,7 +12,7 @@
     "@google-cloud/local-auth": "^2.1.0",
     "@googleapis/docs": "^3.0.0",
     "@heroicons/react": "^2.0.18",
-    "@hookform/resolvers": "^3.3.2",
+    "@hookform/resolvers": "^3.3.3",
     "@prisma/client": "^5.7.1",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
