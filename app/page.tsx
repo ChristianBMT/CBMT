@@ -1,26 +1,86 @@
 "use client";
 
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
+// import Image from "next/image";
+// import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import DevotionCard from "@/components/devotion/DevotionCard";
 
 export default function Home() {
   const router = useRouter();
-  const [devotionDate, setDevotionDate] = useState<string>("");
+  const [thisWeekDevotion, setThisWeekDevotion] = useState([]);
+  const [allDevotion, setAllDevotion] = useState([]);
 
-  useEffect(() => {
-    const today = new Date();
-    setDevotionDate(
-      `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
-    );
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <main className="min-h-100dvh flex flex-col mx-auto max-w-[500px] px-6">
       <h1 className="font-bold text-3xl"> Serving our Nation with Faith</h1>
-      <h6 className="font-semibold text-xl mt-1">Devotions for BMT</h6>
-      <div className="relative my-5">
+      <h2 className="font-semibold text-xl mt-1">Devotions for BMT</h2>
+      <div className="flex flex-col gap-2 my-2">
+        <h3 className="font-bold">This Week</h3>
+        <div className="flex overflow-x-scroll gap-3">
+          <DevotionCard
+            id={"idk"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={1}
+            title={"Finding Strength in Trusting God"}
+          />
+          <DevotionCard
+            id={"idk"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={2}
+            title={"You are God's Soldier"}
+          />
+          <DevotionCard
+            id={"idk"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={3}
+            title={"Letting God Lead"}
+          />
+        </div>
+      </div>
+      <div className="flex flex-col gap-2 my-2">
+        <div className="flex justify-between items-center">
+          <h3 className="font-bold">Past Devotions</h3>
+          <div className="text-xs" onClick={() => router.push("/test")}>
+            SEE ALL &gt;
+          </div>
+        </div>
+        <div className="flex overflow-x-scroll gap-3">
+          <DevotionCard
+            id={"idk"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={1}
+            title={"Finding Strength in Trusting God"}
+          />
+          <DevotionCard
+            id={"idk"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={2}
+            title={"You are God's Soldier"}
+          />
+          <DevotionCard
+            id={"idk"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={3}
+            title={"Letting God Lead"}
+          />
+          <DevotionCard
+            id={"idk"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={1}
+            title={"Finding Strength in Trusting God"}
+          />
+          <DevotionCard
+            id={"idk"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={1}
+            title={"Finding Strength in Trusting God"}
+          />
+        </div>
+      </div>
+      {/* <div className="relative my-5">
         <Image
           className="w-full rounded-lg shadow-xl aspect-[3/2] object-cover"
           src="/DailyImage.webp"
@@ -56,7 +116,7 @@ export default function Home() {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </main>
   );
 }

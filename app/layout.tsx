@@ -37,7 +37,7 @@ export default function RootLayout({
           });
         `}
       </Script>
-      <body className={cn(inter.className, "min-h-[100dvh] ")}>
+      <body className={cn(inter.className, "min-h-[100dvh]")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -45,8 +45,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Loading />
+          {/* <div className="w-full p-2 fixed top-0 h-[56px] bg-white dark:bg-black"> */}
           <Navbar />
+          {/* </div> */}
+          {/* <div className="mt-[56px]"> */}
           {children}
+          {/* </div> */}
           <SpeedInsights />
           <Toaster />
         </ThemeProvider>

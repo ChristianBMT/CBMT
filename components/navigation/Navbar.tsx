@@ -42,7 +42,7 @@ export default function Navbar() {
         <Button
           variant="ghost"
           size="icon"
-          className="mt-2 ml-2"
+          className="m-2"
           onClick={() => openNav()}
         >
           <Menu />
@@ -82,13 +82,11 @@ export default function Navbar() {
             className="w-full justify-start sm:justify-center"
             onClick={() =>
               navigateTo(
-                `/devotions/${today.getFullYear()}/${
-                  today.getMonth() + 1
-                }/${today.getDate()}`
+                `/devotions`
               )
             }
           >
-            Daily Devotion
+            Devotions
           </Button>
           <Button
             variant={"ghost"}
