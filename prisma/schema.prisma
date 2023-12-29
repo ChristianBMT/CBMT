@@ -9,7 +9,7 @@ datasource db {
 
 model Devotion {
   id    String @id @default(uuid())
-  title String 
+  title String
 
   author       String
   author_about String?
@@ -17,12 +17,14 @@ model Devotion {
   verse_id    String?
   bible_verse String?
 
-  content String @unique
+  content String  @unique
   prayer  String?
 
   docs String
 
   audio_file String?
+
+  image String @default("/DailyImage.webp")
 
   weekNo       Int
   Week         Week           @relation(fields: [weekNo], references: [week])

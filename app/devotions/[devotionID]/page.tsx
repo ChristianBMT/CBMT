@@ -47,19 +47,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
   }, []);
 
   const router = useRouter();
-  const [devotionObj, setDevotionObj] = useState<Devotion>({
-    audio_file: "",
-    author: "",
-    author_about: "",
-    bible_verse: "",
-    content: "",
-    docs: "",
-    id: "",
-    prayer: "",
-    title: "",
-    verse_id: "",
-    weekNo: 0,
-  });
+  const [devotionObj, setDevotionObj] = useState<Devotion>();
   const [allDevotion, setAllDevotion] = useState<Devotion[]>([]);
 
   async function getData() {
@@ -93,12 +81,15 @@ export default function DevotionPage({ params }: DevotionPageParams) {
 
   return (
     <main className="min-h-100dvh flex flex-col mx-auto max-w-[500px]  py-2">
-      <ImageCred src="/Devotion1.jpeg" className="w-full aspect-[3/2]" />
+      <ImageCred
+        src={devotionObj?.image || "/DailyImage.webp"}
+        className="w-full aspect-[3/2]"
+      />
       <div className="p-2 pb-[3.5rem]">
         <div className="flex w-full justify-between pb-0.5">
-          <AudioPlayer audio_file={devotionObj.audio_file} />
+          <AudioPlayer audio_file={devotionObj?.audio_file} />
           <Select
-            defaultValue={devotionObj.id}
+            defaultValue={devotionObj?.id}
             open={selectOpen}
             onOpenChange={setSelectOpen}
             onValueChange={(value: string) => {
@@ -118,7 +109,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
               )}
             >
               <SelectValue
-                placeholder={`Week ${devotionObj.weekNo}: ${devotionObj.title}`}
+                placeholder={`Week ${devotionObj?.weekNo}: ${devotionObj?.title}`}
               />
             </SelectTrigger>
             <SelectContent>
@@ -139,10 +130,10 @@ export default function DevotionPage({ params }: DevotionPageParams) {
           </Select>
           <ShareButton content={currentLink} />
         </div>
-        {devotionObj.content ? (
+        {devotionObj?.content ? (
           <>
             <section className="p-2">
-              <h2 className="font-bold text-xl">{devotionObj.title}</h2>
+              <h2 className="font-bold text-xl">{devotionObj?.title}</h2>
               <p className="text-sm">
                 <span>By</span>
                 <HoverCard>
@@ -151,7 +142,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
                       variant={"ghost"}
                       className="h-fit px-1.5 underline underline-offset-2"
                     >
-                      {devotionObj.author}
+                      {devotionObj?.author}
                     </Button>
                   </HoverCardTrigger>
                   <HoverCardContent className="max-w-[320px] w-fit min-w-[200px]">
@@ -162,10 +153,10 @@ export default function DevotionPage({ params }: DevotionPageParams) {
                       </Avatar>
                       <div className="space-y-1">
                         <h4 className="text-sm font-semibold">
-                          {devotionObj.author}
+                          {devotionObj?.author}
                         </h4>
-                        {devotionObj.author_about && (
-                          <p className="text-sm">{devotionObj.author_about}</p>
+                        {devotionObj?.author_about && (
+                          <p className="text-sm">{devotionObj?.author_about}</p>
                         )}
                       </div>
                     </div>
@@ -173,12 +164,12 @@ export default function DevotionPage({ params }: DevotionPageParams) {
                 </HoverCard>
               </p>
               <div className="flex flex-col gap-2 mt-1">
-                {devotionObj.content.split("  ").map((paragraph, idx) => (
+                {devotionObj?.content.split("  ").map((paragraph, idx) => (
                   <p key={"DevotionParagraph" + idx}>{paragraph}</p>
                 ))}
               </div>
             </section>
-            {devotionObj.prayer && (
+            {devotionObj?.prayer && (
               <Card className="w-full my-5">
                 <CardHeader>
                   <CardTitle className="text-xl text-center">
@@ -186,7 +177,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="italic">
-                  {devotionObj.prayer}
+                  {devotionObj?.prayer}
                 </CardContent>
               </Card>
             )}

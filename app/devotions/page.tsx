@@ -33,7 +33,7 @@ export default function AllDevotion() {
             <DevotionCard
               key={"allDevotion-" + idx}
               id={data.id}
-              imageSrc={"/DailyImage.webp"}
+              imageSrc={data.image}
               weekNo={data.weekNo}
               title={data.title}
             />

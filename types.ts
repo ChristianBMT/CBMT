@@ -10,4 +10,5 @@ export type Devotion = {
   title: string;
   verse_id?: string;
   weekNo: number;
+  image: string;
 };

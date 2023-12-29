@@ -73,6 +73,13 @@ export default function Navbar() {
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
+            onClick={() => navigateTo(`/`)}
+          >
+            Home
+          </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start sm:justify-center"
             onClick={() => navigateTo(`/devotions`)}
           >
             Devotions

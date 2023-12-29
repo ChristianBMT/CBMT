@@ -76,17 +76,6 @@ export default function AudioPlayer({ audio_file }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!audio_file) {
-      setIsPlaying(false);
-      toast({
-        title: "Audio not found",
-        variant: "destructive",
-        duration: 500,
-      });
-      setAudioPlayed(false);
-      return;
-    }
-
     if (audioPlayed && !isPlaying) {
       setTimeout(() => {
         setAudioPlayed(false);
@@ -117,9 +106,22 @@ export default function AudioPlayer({ audio_file }: AudioPlayerProps) {
     setChangeValue(false);
   };
 
+  function playAudio() {
+    changeIsPlaying();
+    if (!audio_file) {
+      setIsPlaying(false);
+      toast({
+        title: "Audio not found",
+        variant: "destructive",
+        duration: 500,
+      });
+      setAudioPlayed(false);
+    }
+  }
+
   return (
     <>
-      <Button variant={"ghost"} onClick={() => changeIsPlaying()} ref={ref}>
+      <Button variant={"ghost"} onClick={() => playAudio()} ref={ref}>
         {isPlaying ? (
           <FaPause className="w-4 h-4" />
         ) : (
@@ -134,7 +136,12 @@ export default function AudioPlayer({ audio_file }: AudioPlayerProps) {
         )}
       >
         <div className="max-w-[500px] w-full mx-auto flex items-center">
-          <Button variant={"ghost"} onClick={() => changeIsPlaying()}>
+          <Button
+            variant={"ghost"}
+            onClick={() => {
+              playAudio();
+            }}
+          >
             {isPlaying ? (
               <FaPause className="w-4 h-4" />
             ) : (

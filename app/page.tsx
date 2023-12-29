@@ -50,7 +50,7 @@ export default function Home() {
               <DevotionCard
                 key={"weekDevotion-" + idx}
                 id={data.id}
-                imageSrc={"/DailyImage.webp"}
+                imageSrc={data.image}
                 weekNo={data.weekNo}
                 title={data.title}
                 className="w-[125px]"
@@ -72,7 +72,7 @@ export default function Home() {
               <DevotionCard
                 key={"allDevotion-" + idx}
                 id={data.id}
-                imageSrc={"/DailyImage.webp"}
+                imageSrc={data.image}
                 weekNo={data.weekNo}
                 title={data.title}
                 className="w-[125px]"
