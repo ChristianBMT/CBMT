@@ -66,7 +66,7 @@ export async function GET(req: Request, { params }: GooglePageParams) {
       author: output[1].trim(),
       author_about: output[2].trim(),
       verse_id: output[3].trim(),
-      content: output[4].trim(),
+      content: output[4].trim().split("\n").join("  "),
       prayer: output[5].trim(),
     };
     return NextResponse.json(outputDict);

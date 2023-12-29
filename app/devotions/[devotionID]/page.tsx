@@ -96,7 +96,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
         className="w-full aspect-[3/2]"
       />
       <div className="p-2 pb-[3.5rem]">
-        <div className="flex w-full justify-between pb-0.5">
+        <div className="flex w-full justify-between pb-0.5 gap-2">
           <AudioPlayer audio_file={devotionObj?.audio_file} />
           <Select
             defaultValue={devotionObj?.id}
@@ -114,7 +114,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2",
                 "disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300",
                 "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
-                "h-10 px-4 py-2 w-[200px] text-left font-normal bg-transparent dark:bg-transparent",
+                "h-10 px-2 py-2 w-[225px] text-left font-normal bg-transparent dark:bg-transparent",
                 "border-0 [&>span]:line-clamp-1 [&>svg]:ml-auto text-ellipsis"
               )}
             >

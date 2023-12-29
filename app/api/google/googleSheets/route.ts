@@ -81,8 +81,6 @@ export async function POST(req: Request) {
       }
     });
 
-    return NextResponse.json({ message: "Data Uploaded" }, { status: 201 });
-
     // PROCESSING DEVOTION
     let devotionTag: {
       [key: number]: { content: string; tableID?: string }[];
@@ -122,34 +120,37 @@ export async function POST(req: Request) {
 
       // Audio File
       let audioData;
-      if (!data.audio_file) {
-        let audioResponseBody: DevotionAudioBody = {
-          content: data.content,
-          author: data.author,
-          prayer: data.prayer,
-          title: data.title,
-          verse_id: data.verse_id,
-          bible_verse: bibleData ? bibleData.verse : "",
-        };
-        let audioResponse = await fetch(
-          process.env.NEXT_PUBLIC_SERVER_URL + "/api/devotions/audio",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(audioResponseBody),
-          }
-        );
-        audioData = await audioResponse.json();
-      }
+      // if (!data.audio_file) {
+      //   let audioResponseBody: DevotionAudioBody = {
+      //     content: data.content,
+      //     author: data.author,
+      //     prayer: data.prayer,
+      //     title: data.title,
+      //     verse_id: data.verse_id,
+      //     bible_verse: bibleData ? bibleData.verse : "",
+      //   };
+      //   let audioResponse = await fetch(
+      //     process.env.NEXT_PUBLIC_SERVER_URL + "/api/devotions/audio",
+      //     {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify(audioResponseBody),
+      //     }
+      //   );
+      //   audioData = await audioResponse.json();
+      // }
 
       devotionInsertData.push({
         ...data,
         docs: googleDocsID,
         weekNo: parseInt(row.get("Week")),
-        bible_verse: bibleData ? bibleData.verse : "",
-        audio_file: audioData ? audioData.audio_file : "",
+        bible_verse: bibleData ? bibleData?.verse : "",
+        audio_file:
+          audioData !== undefined
+            ? (audioData as { audio_file?: string })?.audio_file || ""
+            : "",
       });
 
       let tags = row.get("Tag");
