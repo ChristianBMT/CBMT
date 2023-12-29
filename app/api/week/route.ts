@@ -8,7 +8,7 @@ export async function GET(req: Request) {
     const getCurrentWeek = await db.week.findMany({
       where: {
         date: {
-          lt: today,
+          lte: today,
         },
       },
       orderBy: [

@@ -91,7 +91,10 @@ export async function POST(req: Request) {
 
   if (!match) {
     console.error("Invalid verse format");
-    return new NextResponse("Invalid verse format", { status: 400 });
+    return NextResponse.json(
+      { message: "Invalid verse format" },
+      { status: 400 }
+    );
   }
 
   const bookName = match[1].trim();
@@ -146,20 +149,23 @@ export async function POST(req: Request) {
     // Concatenating verses with their number
     const concatenatedVerses = results.reduce(
       (combined, { verseId, verse }) => {
-        // ${verseId}: 
+        // ${verseId}:
         return combined + " " + `${verse}`;
       },
       ""
     );
 
-    return new NextResponse(
-      JSON.stringify({ verse: concatenatedVerses.trim() }),
+    return NextResponse.json(
+      { verse: concatenatedVerses.trim() },
       {
         status: 200,
       }
     );
   } catch (error) {
     console.error("Error fetching Bible verses", error);
-    return new NextResponse("Failed to fetch Bible verses", { status: 500 });
+    return NextResponse.json(
+      { message: "Failed to fetch Bible verses" },
+      { status: 500 }
+    );
   }
 }

@@ -59,6 +59,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
   const router = useRouter();
   const [devotionObj, setDevotionObj] = useState<Devotion>();
   const [allDevotion, setAllDevotion] = useState<Devotion[]>([]);
+  const [week, setWeek] = useState<number>(0);
 
   async function getData() {
     let weekResponse = await fetch(
@@ -71,6 +72,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     );
     let data = await response.json();
     setAllDevotion(data);
+    setWeek(weekData.currentWeek);
   }
 
   async function getCurrentDevotion() {
@@ -78,7 +80,11 @@ export default function DevotionPage({ params }: DevotionPageParams) {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/getDevotion/${params.devotionID}`
     );
     let data = await response.json();
-    if (data == null) {
+    if (!data) {
+      return router.back();
+    }
+
+    if (data.weekNo > week) {
       return router.back();
     }
     setDevotionObj(data);
@@ -129,7 +135,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
                     <SelectItem
                       value={devotion.id}
                       key={"Select-" + idx}
-                      className="w-[300px] text-ellipsis whitespace-nowrap overflow-hidden"
+                      className="w-[300px] text-ellipsis whitespace-nowrap overflow-hidden pl-2 [&>:first-child]:hidden"
                     >
                       Week {devotion.weekNo}: {devotion.title}
                     </SelectItem>

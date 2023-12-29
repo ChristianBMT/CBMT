@@ -36,7 +36,10 @@ By ${author}
       const verseRegex = /^(\d?\s?[A-Za-z ]+?)\s(\d+):(\d+)(-(\d+))?$/;
       const match = verse_id.match(verseRegex);
       if (!match) {
-        return new NextResponse("Invalid Format", { status: 403 });
+        return NextResponse.json(
+          { message: "Invalid Format" },
+          { status: 403 }
+        );
       }
       let verse_id_split = verse_id.split(" ");
       let book = match[1].trim();
@@ -86,7 +89,10 @@ ${prayer}`;
     });
 
     if (voiceResponse.status != "ok") {
-      return new NextResponse("ElevenLabs Error", { status: 500 });
+      return NextResponse.json(
+        { message: "ElevenLabs Error" },
+        { status: 500 }
+      );
     }
 
     // Assume that voice created is the last thing on history
