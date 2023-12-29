@@ -9,7 +9,7 @@ datasource db {
 
 model Devotion {
   id    String @id @default(uuid())
-  title String @unique
+  title String 
 
   author       String
   author_about String?
@@ -20,7 +20,7 @@ model Devotion {
   content String @unique
   prayer  String?
 
-  docs String @unique
+  docs String
 
   audio_file String?
 

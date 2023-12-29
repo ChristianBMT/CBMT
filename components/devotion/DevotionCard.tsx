@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 type DevotionCardProps = {
   id: string;
   imageSrc: string;
   title: string;
   weekNo: number;
+  className?: string;
 };
 
 export default function DevotionCard({
@@ -14,12 +16,16 @@ export default function DevotionCard({
   imageSrc,
   title,
   weekNo,
+  className,
 }: DevotionCardProps) {
   const router = useRouter();
 
   return (
     <div
-      className="flex flex-col min-w-[125px] w-full max-w-[150px] gap-1"
+      className={cn(
+        "flex flex-col min-w-[125px] w-full max-w-[150px] gap-1",
+        className
+      )}
       onClick={() => router.push(`/devotions/${id}`)}
     >
       <Image

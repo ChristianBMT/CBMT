@@ -1,8 +1,16 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { NextResponse } from "next/server";
 import { JWT } from "google-auth-library";
-import { google, docs_v1 } from "googleapis";
 import { db } from "@/lib/db";
+
+type DevotionAudioBody = {
+  content: string;
+  author: string;
+  prayer?: string;
+  title: string;
+  verse_id?: string;
+  bible_verse?: string;
+};
 
 function getDocsID(link: string): string {
   return link.split("/d/")[1].split("/edit")[0];
@@ -73,9 +81,12 @@ export async function POST(req: Request) {
       }
     });
 
+    return NextResponse.json({ message: "Data Uploaded" }, { status: 201 });
+
     // PROCESSING DEVOTION
-    let devotionTag: { [key: number]: { title: string; tableID?: string }[] } =
-      {};
+    let devotionTag: {
+      [key: number]: { content: string; tableID?: string }[];
+    } = {};
     let devotionInsertData = [];
     let devotionSheet = excelSheet.sheetsByTitle["Devotions"];
     let devotionRows = await devotionSheet.getRows();
@@ -109,36 +120,62 @@ export async function POST(req: Request) {
         bibleData = await bibleResponse.json();
       }
 
+      // Audio File
+      let audioData;
+      if (!data.audio_file) {
+        let audioResponseBody: DevotionAudioBody = {
+          content: data.content,
+          author: data.author,
+          prayer: data.prayer,
+          title: data.title,
+          verse_id: data.verse_id,
+          bible_verse: bibleData ? bibleData.verse : "",
+        };
+        let audioResponse = await fetch(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/api/devotions/audio",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(audioResponseBody),
+          }
+        );
+        audioData = await audioResponse.json();
+      }
+
       devotionInsertData.push({
         ...data,
         docs: googleDocsID,
         weekNo: parseInt(row.get("Week")),
         bible_verse: bibleData ? bibleData.verse : "",
+        audio_file: audioData ? audioData.audio_file : "",
       });
+
       let tags = row.get("Tag");
       if (tags) {
         for (let tag of tags.split(",")) {
           if (devotionTag[tag]) {
-            devotionTag[tag].push({ title: data.title });
+            devotionTag[tag].push({ content: data.content });
           } else {
-            devotionTag[tag] = [{ title: data.title }];
+            devotionTag[tag] = [{ content: data.content }];
           }
         }
       }
     }
-    console.log(devotionInsertData);
 
     const createManyDevotion = await db.devotion.createMany({
       data: devotionInsertData,
       skipDuplicates: true,
     });
 
+    // Devotion Tag
     let devotionTagInsertData = [];
     for (let i in devotionTag) {
       for (let devotionObj of devotionTag[i]) {
         let output = await db.devotion.findUnique({
           where: {
-            title: devotionObj["title"],
+            content: devotionObj["content"],
           },
         });
 
@@ -149,16 +186,17 @@ export async function POST(req: Request) {
       }
     }
 
-    console.log(createManyDevotion);
-
     const createManyDevotionTag = await db.devotion_Tag.createMany({
       data: devotionTagInsertData,
       skipDuplicates: true,
     });
 
-    return NextResponse.json({ message: "" }, { status: 201 });
+    return NextResponse.json({ message: "Data Uploaded" }, { status: 201 });
   } catch (error) {
     console.log(error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
