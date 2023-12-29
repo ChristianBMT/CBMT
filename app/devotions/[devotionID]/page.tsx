@@ -145,7 +145,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
             <section className="p-2">
               {devotionObj.verse_id && (
                 <div className="flex items-center mb-2 gap-2">
-                  <p>Today's Scripture:</p>
+                  <p>Today&apos;s Scripture:</p>
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button variant="outline">{devotionObj.verse_id}</Button>
