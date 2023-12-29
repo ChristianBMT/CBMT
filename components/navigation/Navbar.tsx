@@ -73,22 +73,16 @@ export default function Navbar() {
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
-            onClick={() => navigateTo("/vision")}
+            onClick={() => navigateTo(`/`)}
           >
-            Vision
+            Home
           </Button>
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
-            onClick={() =>
-              navigateTo(
-                `/devotions/${today.getFullYear()}/${
-                  today.getMonth() + 1
-                }/${today.getDate()}`
-              )
-            }
+            onClick={() => navigateTo(`/devotions`)}
           >
-            Daily Devotion
+            Devotions
           </Button>
           <Button
             variant={"ghost"}
@@ -96,6 +90,13 @@ export default function Navbar() {
             onClick={() => navigateTo("/discover")}
           >
             Discover
+          </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start sm:justify-center"
+            onClick={() => navigateTo("/vision")}
+          >
+            Vision
           </Button>
           <Button
             variant={"ghost"}

@@ -1,6 +1,5 @@
 import { google, docs_v1 } from "googleapis";
 import { NextResponse } from "next/server";
-import { GoogleSpreadsheet } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
 
 type GooglePageParams = {
@@ -73,6 +72,9 @@ export async function GET(req: Request, { params }: GooglePageParams) {
     return NextResponse.json(outputDict);
   } catch (error) {
     console.log(error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

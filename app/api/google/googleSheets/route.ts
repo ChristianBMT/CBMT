@@ -1,8 +1,16 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { NextResponse } from "next/server";
 import { JWT } from "google-auth-library";
-import { google, docs_v1 } from "googleapis";
 import { db } from "@/lib/db";
+
+type DevotionAudioBody = {
+  content: string;
+  author: string;
+  prayer?: string;
+  title: string;
+  verse_id?: string;
+  bible_verse?: string;
+};
 
 function getDocsID(link: string): string {
   return link.split("/d/")[1].split("/edit")[0];
@@ -29,6 +37,24 @@ export async function POST(req: Request) {
 
     await excelSheet.loadInfo();
 
+    // PROCESSING WEEKS
+    let weekSheet = excelSheet.sheetsByTitle["Week"];
+    let weekRows = await weekSheet.getRows();
+
+    let weekInsertData = [];
+    for (let row of weekRows) {
+      weekInsertData.push({
+        week: parseInt(row.get("WeekNo")),
+        date: new Date(row.get("Date")),
+      });
+    }
+
+    const createManyWeek = await db.week.createMany({
+      data: weekInsertData,
+      skipDuplicates: true,
+    });
+
+    // PROCESSING TAGS
     let tagSheet = excelSheet.sheetsByTitle["Tags"];
     let tagRows = await tagSheet.getRows();
 
@@ -55,11 +81,17 @@ export async function POST(req: Request) {
       }
     });
 
-    let devotionTag: { [key: number]: { date: string; tableID?: string } } = {};
+    return NextResponse.json({ message: "Data Uploaded" }, { status: 201 });
+
+    // PROCESSING DEVOTION
+    let devotionTag: {
+      [key: number]: { content: string; tableID?: string }[];
+    } = {};
     let devotionInsertData = [];
     let devotionSheet = excelSheet.sheetsByTitle["Devotions"];
     let devotionRows = await devotionSheet.getRows();
     for (let row of devotionRows) {
+      // Google Docs Link
       let googleDocsID = getDocsID(row.get("Content Docs"));
       let response = await fetch(
         process.env.NEXT_PUBLIC_SERVER_URL +
@@ -70,31 +102,88 @@ export async function POST(req: Request) {
         }
       );
       let data = await response.json();
+
+      // Bible Verse
+      let bibleData;
+      if (data.verse_id) {
+        let bibleResponseBody: { verse: string } = { verse: data.verse_id };
+        let bibleResponse = await fetch(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/api/devotions/verse",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bibleResponseBody),
+          }
+        );
+        bibleData = await bibleResponse.json();
+      }
+
+      // Audio File
+      let audioData;
+      if (!data.audio_file) {
+        let audioResponseBody: DevotionAudioBody = {
+          content: data.content,
+          author: data.author,
+          prayer: data.prayer,
+          title: data.title,
+          verse_id: data.verse_id,
+          bible_verse: bibleData ? bibleData.verse : "",
+        };
+        let audioResponse = await fetch(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/api/devotions/audio",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(audioResponseBody),
+          }
+        );
+        audioData = await audioResponse.json();
+      }
+
       devotionInsertData.push({
         ...data,
         docs: googleDocsID,
-        devotion_date: row.get("Date"),
-        bible_verse: "Hi",
+        weekNo: parseInt(row.get("Week")),
+        bible_verse: bibleData ? bibleData.verse : "",
+        audio_file: audioData ? audioData.audio_file : "",
       });
-      devotionTag[row.get("Tag")] = { date: row.get("Date") };
+
+      let tags = row.get("Tag");
+      if (tags) {
+        for (let tag of tags.split(",")) {
+          if (devotionTag[tag]) {
+            devotionTag[tag].push({ content: data.content });
+          } else {
+            devotionTag[tag] = [{ content: data.content }];
+          }
+        }
+      }
     }
+
     const createManyDevotion = await db.devotion.createMany({
       data: devotionInsertData,
       skipDuplicates: true,
     });
 
+    // Devotion Tag
     let devotionTagInsertData = [];
     for (let i in devotionTag) {
-      let date = devotionTag[i]["date"];
-      let output = await db.devotion.findUnique({
-        where: {
-          devotion_date: date,
-        },
-      });
-      devotionTagInsertData.push({
-        devotion_id: output.id,
-        tag_id: tagMap[i]["tableID"],
-      });
+      for (let devotionObj of devotionTag[i]) {
+        let output = await db.devotion.findUnique({
+          where: {
+            content: devotionObj["content"],
+          },
+        });
+
+        devotionTagInsertData.push({
+          devotion_id: output.id,
+          tag_id: tagMap[i]["tableID"],
+        });
+      }
     }
 
     const createManyDevotionTag = await db.devotion_Tag.createMany({
@@ -102,9 +191,12 @@ export async function POST(req: Request) {
       skipDuplicates: true,
     });
 
-    return NextResponse.json({ message: "" }, { status: 201 });
+    return NextResponse.json({ message: "Data Uploaded" }, { status: 201 });
   } catch (error) {
     console.log(error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

@@ -12,19 +12,23 @@ model Devotion {
   title String
 
   author       String
-  author_about String
+  author_about String?
 
-  verse_id    String
-  bible_verse String
-  content     String
-  prayer      String?
+  verse_id    String?
+  bible_verse String?
 
-  docs String @unique
+  content String  @unique
+  prayer  String?
+
+  docs String
 
   audio_file String?
 
-  devotion_date String         @unique
-  Devotion_Tag  Devotion_Tag[]
+  image String @default("/DailyImage.webp")
+
+  weekNo       Int
+  Week         Week           @relation(fields: [weekNo], references: [week])
+  Devotion_Tag Devotion_Tag[]
 }
 
 model Tag {
@@ -40,4 +44,10 @@ model Devotion_Tag {
   Devotion    Devotion? @relation(fields: [devotion_id], references: [id])
 
   @@id([devotion_id, tag_id])
+}
+
+model Week {
+  week     Int        @id
+  date     DateTime   @db.Date
+  Devotion Devotion[]
 }
