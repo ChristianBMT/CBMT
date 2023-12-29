@@ -12,8 +12,8 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ChristBMT",
-  description: "ChristBMT",
+  title: "Christ in BMT",
+  description: "Christ in BMT",
 };
 
 export default function RootLayout({
@@ -23,6 +23,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/CBMT Mascot.png" type="image/x-icon" />
+      </head>
       <Script
         strategy="lazyOnload"
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
