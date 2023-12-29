@@ -1,6 +1,5 @@
 import { google, docs_v1 } from "googleapis";
 import { NextResponse } from "next/server";
-import { GoogleSpreadsheet } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
 
 type GooglePageParams = {

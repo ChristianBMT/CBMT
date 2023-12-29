@@ -40,4 +40,6 @@ export default function DevotionPage({ params }: DevotionPageParams) {
   useEffect(() => {
     getDevotionData();
   }, []);
+
+  return <div>{params.devotionID}</div>;
 }

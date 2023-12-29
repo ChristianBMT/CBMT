@@ -19,8 +19,8 @@ export default function DevotionCard({
 
   return (
     <div
-      className="flex flex-col min-w-[125px] w-[125px] gap-1"
-      onClick={() => router.push(`/${id}`)}
+      className="flex flex-col min-w-[125px] w-full max-w-[150px] gap-1"
+      onClick={() => router.push(`/devotions/${id}`)}
     >
       <Image
         src={imageSrc}
