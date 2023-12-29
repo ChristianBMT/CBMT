@@ -42,7 +42,7 @@ export default function Navbar() {
         <Button
           variant="ghost"
           size="icon"
-          className="m-2"
+          className="mt-2 ml-2"
           onClick={() => openNav()}
         >
           <Menu />
@@ -73,18 +73,7 @@ export default function Navbar() {
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
-            onClick={() => navigateTo("/vision")}
-          >
-            Vision
-          </Button>
-          <Button
-            variant={"ghost"}
-            className="w-full justify-start sm:justify-center"
-            onClick={() =>
-              navigateTo(
-                `/devotions`
-              )
-            }
+            onClick={() => navigateTo(`/devotions`)}
           >
             Devotions
           </Button>
@@ -94,6 +83,13 @@ export default function Navbar() {
             onClick={() => navigateTo("/discover")}
           >
             Discover
+          </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start sm:justify-center"
+            onClick={() => navigateTo("/vision")}
+          >
+            Vision
           </Button>
           <Button
             variant={"ghost"}
