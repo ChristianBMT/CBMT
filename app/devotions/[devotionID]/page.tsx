@@ -31,6 +31,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type DevotionPageParams = {
   params: {
@@ -133,36 +143,60 @@ export default function DevotionPage({ params }: DevotionPageParams) {
         {devotionObj?.content ? (
           <>
             <section className="p-2">
+              {devotionObj.verse_id && (
+                <div className="flex items-center mb-2 gap-2">
+                  <p>Today's Scripture:</p>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline">{devotionObj.verse_id}</Button>
+                    </DialogTrigger>
+                    <DialogContent className="w-4/5 max-w-[475px] rounded-lg">
+                      <DialogHeader>
+                        <DialogTitle className="text-left text-xl">
+                          {devotionObj.verse_id}
+                        </DialogTitle>
+                        <DialogDescription className="text-base text-left">
+                          {devotionObj.bible_verse}
+                        </DialogDescription>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              )}
               <h2 className="font-bold text-xl">{devotionObj?.title}</h2>
-              <p className="text-sm">
-                <span>By</span>
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <Button
-                      variant={"ghost"}
-                      className="h-fit px-1.5 underline underline-offset-2"
-                    >
-                      {devotionObj?.author}
-                    </Button>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="max-w-[320px] w-fit min-w-[200px]">
-                    <div className="flex justify-start space-x-4">
-                      <Avatar>
-                        {/* <AvatarImage src="https://github.com/vercel.png" /> */}
-                        <AvatarFallback></AvatarFallback>
-                      </Avatar>
-                      <div className="space-y-1">
-                        <h4 className="text-sm font-semibold">
-                          {devotionObj?.author}
-                        </h4>
-                        {devotionObj?.author_about && (
-                          <p className="text-sm">{devotionObj?.author_about}</p>
-                        )}
+              <div className="flex">
+                <p className="text-sm">
+                  <span>By</span>
+                  <HoverCard>
+                    <HoverCardTrigger asChild>
+                      <Button
+                        variant={"ghost"}
+                        className="h-fit px-1.5 underline underline-offset-2"
+                      >
+                        {devotionObj?.author}
+                      </Button>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="max-w-[320px] w-fit min-w-[200px]">
+                      <div className="flex justify-start space-x-4">
+                        <Avatar>
+                          {/* <AvatarImage src="https://github.com/vercel.png" /> */}
+                          <AvatarFallback></AvatarFallback>
+                        </Avatar>
+                        <div className="space-y-1">
+                          <h4 className="text-sm font-semibold">
+                            {devotionObj?.author}
+                          </h4>
+                          {devotionObj?.author_about && (
+                            <p className="text-sm">
+                              {devotionObj?.author_about}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
-              </p>
+                    </HoverCardContent>
+                  </HoverCard>
+                </p>
+              </div>
               <div className="flex flex-col gap-2 mt-1">
                 {devotionObj?.content.split("  ").map((paragraph, idx) => (
                   <p key={"DevotionParagraph" + idx}>{paragraph}</p>
