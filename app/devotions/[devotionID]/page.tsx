@@ -71,6 +71,12 @@ export default function DevotionPage({ params }: DevotionPageParams) {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions/${weekData.currentWeek}`
     );
     let data = await response.json();
+    let currentDevotionIdx = data.findIndex(
+      (devotion: Devotion) => devotion.id == params.devotionID
+    );
+    let currentDevotion = data.splice(currentDevotionIdx, 1)[0];
+    data.unshift(currentDevotion);
+    console.log(data, currentDevotion, currentDevotionIdx);
     setAllDevotion(data);
     setWeek(weekData.currentWeek);
   }
@@ -125,7 +131,9 @@ export default function DevotionPage({ params }: DevotionPageParams) {
               )}
             >
               <SelectValue
-                placeholder={`Week ${devotionObj?.weekNo}: ${devotionObj?.title}`}
+                placeholder={`Week ${devotionObj?.weekNo ?? ""}: ${
+                  devotionObj?.title ?? ""
+                }`}
               />
             </SelectTrigger>
             <SelectContent>
