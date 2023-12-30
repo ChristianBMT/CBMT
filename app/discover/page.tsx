@@ -64,7 +64,7 @@ const page = () => {
       <div>
         <div className="font-semibold text-2xl mb-5">Browse Other Plans</div>
         <div className="flex flex-row space-x-7 overflow-x-auto whitespace-nowrap">
-          {/* Multiple DevotionCard components are placed here */}
+          {/* Multiple DevotionCard components here */}
           <DevotionCard
             id={"idk1"}
             imageSrc={"/DailyImage.webp"}
