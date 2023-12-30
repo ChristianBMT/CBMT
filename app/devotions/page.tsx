@@ -31,7 +31,7 @@ export default function AllDevotion() {
   }, [allDevotion]);
 
   return (
-    <main className="min-h-100dvh flex flex-col mx-auto max-w-[500px] px-6">
+    <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6">
       <h1 className="font-semibold text-xl text-center">All Devotions</h1>
       <div className="grid grid-cols-2 mx-auto gap-3 my-2 justify-start place-items-start">
         {loading || allDevotion.length == 0

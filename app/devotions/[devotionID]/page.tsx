@@ -96,7 +96,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
   }, []);
 
   return (
-    <main className="min-h-100dvh flex flex-col mx-auto max-w-[500px]  py-2">
+    <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px]  py-2">
       <ImageCred
         src={devotionObj?.image || "/DailyImage.webp"}
         className="w-full aspect-[3/2]"
