@@ -50,9 +50,9 @@ export default function Home() {
       <h2 className="font-semibold text-xl mt-1">Devotions for BMT</h2>
       <div className="flex flex-col gap-2 my-2 md:my-3">
         <h3 className="font-bold">This Week</h3>
-        <div className="flex overflow-x-scroll gap-3">
-          {loading
-            ? [...new Array(2)].map((_, idx) => (
+        <div className="flex overflow-x-scroll gap-3 h-[189px]">
+          {thisWeekDevotion.length == 0 || loading
+            ? [...new Array(3)].map((_, idx) => (
                 <div
                   className={"flex flex-col min-w-[125px] w-[125px] gap-1"}
                   key={"thisSkeleton" + idx}
@@ -84,8 +84,8 @@ export default function Home() {
             SEE ALL &gt;
           </div>
         </div>
-        <div className="flex overflow-x-scroll gap-3">
-          {loading
+        <div className="flex overflow-x-scroll gap-3  h-[189px]">
+          {loading || allDevotion.length == 0
             ? [...new Array(5)].map((_, idx) => (
                 <div
                   className={"flex flex-col min-w-[125px] w-[125px] gap-1"}

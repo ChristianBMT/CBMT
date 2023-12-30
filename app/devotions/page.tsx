@@ -34,7 +34,7 @@ export default function AllDevotion() {
     <main className="min-h-100dvh flex flex-col mx-auto max-w-[500px] px-6">
       <h1 className="font-semibold text-xl text-center">All Devotions</h1>
       <div className="grid grid-cols-2 mx-auto gap-3 my-2 justify-start place-items-start">
-        {loading
+        {loading || allDevotion.length == 0
           ? [...new Array(4)].map((_, idx) => (
               <div
                 className={"flex flex-col w-[150px] gap-1"}
