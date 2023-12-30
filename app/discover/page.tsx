@@ -1,6 +1,11 @@
+"use client";
+
 import React from "react";
 import { Input } from "@/components/ui/input";
+
 import CategoryBtn from "@/components/CategoryBtn";
+import DevotionCard from "@/components/devotion/DevotionCard";
+
 import { FaSearch } from "react-icons/fa";
 
 const page = () => {
@@ -15,13 +20,81 @@ const page = () => {
           placeholder="Search"
         />
       </div>
-      <div className="mt-10">
+      <div className="my-10">
         <div className="text-white font-semibold text-2xl mb-2">Categories</div>
-        <div className="w-full flex space-x-4">
-          <CategoryBtn className="dark:bg-blue-500 flex-1" text="Category 1" color="blue" />
-          <CategoryBtn className="dark:bg-blue-500 flex-1" text="Category 2" color="green" />
-          <CategoryBtn className="dark:bg-blue-500 flex-1" text="Category 3" color="red" />
-          <CategoryBtn className="dark:bg-blue-500 flex-1" text="Category 4" color="yellow" />
+        <div className="overflow-x-auto">
+          <div className="flex space-x-4">
+            <CategoryBtn
+              className="dark:bg-blue-500 min-w-max"
+              text="Category 1"
+            />
+            <CategoryBtn
+              className="dark:bg-green-500 min-w-max"
+              text="Category 2"
+            />
+            <CategoryBtn
+              className="dark:bg-red-500 min-w-max"
+              text="Category 3"
+            />
+            <CategoryBtn
+              className="dark:bg-yellow-500 min-w-max"
+              text="Category 4"
+            />
+          </div>
+          <div className="flex mt-4 space-x-4">
+            <CategoryBtn
+              className="dark:bg-pink-500 min-w-max"
+              text="Category 5"
+            />
+            <CategoryBtn
+              className="dark:bg-purple-500 min-w-max"
+              text="Category 6"
+            />
+            <CategoryBtn
+              className="dark:bg-indigo-500 min-w-max"
+              text="Category 7"
+            />
+            <CategoryBtn
+              className="dark:bg-orange-500 min-w-max"
+              text="Category 8"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <div className="font-semibold text-2xl mb-5">Browse Other Plans</div>
+        <div className="flex flex-row space-x-7 overflow-x-auto whitespace-nowrap">
+          {/* Multiple DevotionCard components are placed here */}
+          <DevotionCard
+            id={"idk1"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={1}
+            title={"Finding Strength in Trusting God"}
+          />
+          <DevotionCard
+            id={"idk2"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={2}
+            title={"Embracing Hope in Times of Uncertainty"}
+          />
+          <DevotionCard
+            id={"idk3"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={3}
+            title={"Embracing Hope in Times of Uncertainty"}
+          />
+          <DevotionCard
+            id={"idk4"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={4}
+            title={"Embracing Hope in Times of Uncertainty"}
+          />
+          <DevotionCard
+            id={"idk5"}
+            imageSrc={"/DailyImage.webp"}
+            weekNo={5}
+            title={"Embracing Hope in Times of Uncertainty"}
+          />
         </div>
       </div>
     </div>
