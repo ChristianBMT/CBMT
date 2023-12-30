@@ -9,7 +9,7 @@ datasource db {
 
 model Devotion {
   id    String @id @default(uuid())
-  title String
+  title String @unique
 
   author       String
   author_about String?
@@ -25,7 +25,7 @@ model Devotion {
   audio_file String?
 
   image String @default("/DailyImage.webp")
-
+  
   weekNo       Int
   Week         Week           @relation(fields: [weekNo], references: [week])
   Devotion_Tag Devotion_Tag[]

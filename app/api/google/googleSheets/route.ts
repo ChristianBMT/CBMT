@@ -141,7 +141,7 @@ export async function POST(req: Request) {
       //   );
       //   audioData = await audioResponse.json();
       // }
-
+      
       devotionInsertData.push({
         ...data,
         docs: googleDocsID,
@@ -186,6 +186,8 @@ export async function POST(req: Request) {
         });
       }
     }
+
+    console.log(createManyDevotion);
 
     const createManyDevotionTag = await db.devotion_Tag.createMany({
       data: devotionTagInsertData,
