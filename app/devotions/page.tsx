@@ -33,11 +33,11 @@ export default function AllDevotion() {
   return (
     <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6">
       <h1 className="font-semibold text-xl text-center">All Devotions</h1>
-      <div className="grid grid-cols-2 mx-auto gap-3 my-2 justify-start place-items-start">
+      <div className="grid grid-cols-2 mx-auto gap-3 my-2 justify-start place-items-start w-full">
         {loading || allDevotion.length == 0
           ? [...new Array(4)].map((_, idx) => (
               <div
-                className={"flex flex-col w-[150px] gap-1"}
+                className={"flex flex-col w-full max-w-[150px] gap-1"}
                 key={"allSkeleton" + idx}
               >
                 <Skeleton className="aspect-square w-full object-cover object-center rounded-lg" />
@@ -54,6 +54,7 @@ export default function AllDevotion() {
                   imageSrc={data.image}
                   weekNo={data.weekNo}
                   title={data.title}
+                  className="min-w-0"
                 />
               );
             })}
