@@ -45,10 +45,10 @@ export default function Home() {
   }, [allDevotion, week, thisWeekDevotion]);
 
   return (
-    <main className="min-h-100dvh flex flex-col mx-auto max-w-[500px] px-6">
+    <main className="min-h-[calc(100dvh-48px)] h-[calc(100dvh-48px)] max-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6 overflow-y-hidden">
       <h1 className="font-bold text-3xl">Serving our Nation with Faith</h1>
       <h2 className="font-semibold text-xl mt-1">Devotions for BMT</h2>
-      <div className="flex flex-col gap-2 my-2 md:my-3">
+      <div className="flex flex-col gap-2 my-2.5">
         <h3 className="font-bold">This Week</h3>
         <div className="flex overflow-x-scroll gap-3 h-[189px]">
           {thisWeekDevotion.length == 0 || loading
@@ -77,7 +77,7 @@ export default function Home() {
               })}
         </div>
       </div>
-      <div className="flex flex-col gap-2 my-2 md:my-3">
+      <div className="flex flex-col gap-2 my-2.5">
         <div className="flex justify-between items-center">
           <h3 className="font-bold">Past Devotions</h3>
           <div className="text-xs" onClick={() => router.push("/devotions")}>
