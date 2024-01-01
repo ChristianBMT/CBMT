@@ -122,7 +122,7 @@ export function DataTable<TData, TValue>({
             <SelectContent>
               <SelectGroup>
                 <SelectItem value="all">All Weeks</SelectItem>
-                {/* {weekData.map((week, idx) => {
+                {weekData.map((week, idx) => {
                   return (
                     <SelectItem
                       value={week.week.toString()}
@@ -131,12 +131,7 @@ export function DataTable<TData, TValue>({
                       Week {week.week}: {week.name}
                     </SelectItem>
                   );
-                })} */}
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
+                })}
               </SelectGroup>
             </SelectContent>
           </Select>
