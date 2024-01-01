@@ -115,7 +115,18 @@ export function DataTable<TData, TValue>({
           className="max-w-xs mr-auto"
         />
         <div className="flex justify-between w-full gap-3">
-          <Select defaultValue="all">
+          <Select
+            defaultValue="all"
+            onValueChange={(value) => {
+              console.log(value);
+              if (value == "all") {
+                setColumnFilters([]);
+                return;
+              } else {
+                table.getColumn("weekNo")?.setFilterValue(value);
+              }
+            }}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by weeks" />
             </SelectTrigger>
