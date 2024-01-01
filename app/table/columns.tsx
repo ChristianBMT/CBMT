@@ -1,27 +1,36 @@
-"use client";
+'use client'
 
 import { ColumnDef } from "@tanstack/react-table"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
+export type Header = {
+  weekNumber: number
+  title: string
+  author: string
+  completed: boolean
 }
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Header>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    id: 'completed',
+    header: 'Completed',
+    cell: ({ row }) => (
+      <input 
+        type="checkbox" 
+        checked={row.original.completed}
+        onChange={() => {console.log("changed")}} 
+      />
+    ),
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: 'weekNumber',
+    header: 'Week',
   },
   {
-    accessorKey: "amount",
-    header: "Amount",
+    accessorKey: 'title',
+    header: 'Title',
+  },
+  {
+    accessorKey: 'author',
+    header: 'Author',
   },
 ]
