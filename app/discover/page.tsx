@@ -13,7 +13,7 @@ const page = () => {
     <div className="m-5">
       <div className="text-white font-semibold text-4xl">Discover</div>
       <div className="my-5 relative w-full">
-        <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white" />
+        <FaSearch className="absolute left-3 top-1/2 transform -tranzinc-y-1/2 text-white" />
         <Input
           className="pl-12 pr-3 py-2 w-full text-base font-normal text-white dark:bg-[#444444] border dark:border-[#444444] rounded-full transition ease-in-out dark:focus:text-white focus:outline-none"
           type="email"
