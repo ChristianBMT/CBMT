@@ -19,7 +19,6 @@ const CategoryBtn: React.FC<CategoryBtnProps> = ({
   const hoverBgColorClass = `hover:${baseBgColorClass}-dark`; // Replace '-dark' with the correct darker variant
 
   return (
-    <div className="w-1/4">
       <Button 
         variant="outline" 
         size="sm" 
@@ -32,7 +31,6 @@ const CategoryBtn: React.FC<CategoryBtnProps> = ({
       >
         {text}
       </Button>
-    </div>
   );
 };
 

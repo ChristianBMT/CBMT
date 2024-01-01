@@ -59,20 +59,18 @@ export default function DevotionPage({ params }: DevotionPageParams) {
   const router = useRouter();
   const [devotionObj, setDevotionObj] = useState<Devotion>();
   const [allDevotion, setAllDevotion] = useState<Devotion[]>([]);
-  const [week, setWeek] = useState<number>(0);
 
   async function getData() {
-    let weekResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/week`
-    );
-    let weekData = await weekResponse.json();
-
     let response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions/${weekData.currentWeek}`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions`
     );
     let data = await response.json();
+    let currentDevotionIdx = data.findIndex(
+      (devotion: Devotion) => devotion.id == params.devotionID
+    );
+    let currentDevotion = data.splice(currentDevotionIdx, 1)[0];
+    data.unshift(currentDevotion);
     setAllDevotion(data);
-    setWeek(weekData.currentWeek);
   }
 
   async function getCurrentDevotion() {
@@ -84,9 +82,6 @@ export default function DevotionPage({ params }: DevotionPageParams) {
       return router.back();
     }
 
-    if (data.weekNo > week) {
-      return router.back();
-    }
     setDevotionObj(data);
   }
 
@@ -96,7 +91,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
   }, []);
 
   return (
-    <main className="min-h-100dvh flex flex-col mx-auto max-w-[500px]  py-2">
+    <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px]  py-2">
       <ImageCred
         src={devotionObj?.image || "/DailyImage.webp"}
         className="w-full aspect-[3/2]"
@@ -125,7 +120,9 @@ export default function DevotionPage({ params }: DevotionPageParams) {
               )}
             >
               <SelectValue
-                placeholder={`Week ${devotionObj?.weekNo}: ${devotionObj?.title}`}
+                placeholder={`Week ${devotionObj?.weekNo ?? ""}: ${
+                  devotionObj?.title ?? ""
+                }`}
               />
             </SelectTrigger>
             <SelectContent>
@@ -149,25 +146,28 @@ export default function DevotionPage({ params }: DevotionPageParams) {
         {devotionObj?.content ? (
           <>
             <section className="p-2">
-              {devotionObj.verse_id && (
+              {/* {devotionObj.verse_id && (
                 <div className="flex items-center mb-2 gap-2">
-                  <p>Today&apos;s Scripture:</p>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="outline">{devotionObj.verse_id}</Button>
-                    </DialogTrigger>
-                    <DialogContent className="w-4/5 max-w-[475px] rounded-lg">
-                      <DialogHeader>
-                        <DialogTitle className="text-left text-xl">
-                          {devotionObj.verse_id}
-                        </DialogTitle>
-                        <DialogDescription className="text-base text-left">
-                          {devotionObj.bible_verse}
-                        </DialogDescription>
-                      </DialogHeader>
-                    </DialogContent>
-                  </Dialog>
+                  <p>Today&apos;s Scripture: {devotionObj.verse_id}</p>
                 </div>
+              )} */}
+              {devotionObj.verse_id && (
+                <Card className="w-full mb-5 rounded-lg border border-slate-200 bg-white text-slate-950 shadow-sm dark:border-slate-800 dark:bg-slate-950 dark:text-slate-50">
+                  <CardHeader>
+                    <CardTitle className="text-base text-center flex gap-3 items-center justify-center">
+                      <p className="text-lg">Today&apos;s Scripture:</p>
+                      <Button
+                        variant={"secondary"}
+                        className="font-bold bg-slate-100 text-slate-900 hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80"
+                      >
+                        {devotionObj.verse_id}
+                      </Button>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="italic">
+                    {devotionObj.bible_verse}
+                  </CardContent>
+                </Card>
               )}
               <h2 className="font-bold text-xl">{devotionObj?.title}</h2>
               <div className="flex">
@@ -210,7 +210,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
               </div>
             </section>
             {devotionObj?.prayer && (
-              <Card className="w-full my-5">
+              <Card className="w-full my-5 rounded-lg border border-slate-200 bg-white text-slate-950 shadow-sm dark:border-slate-800 dark:bg-slate-950 dark:text-slate-50">
                 <CardHeader>
                   <CardTitle className="text-xl text-center">
                     Reflect & Pray
