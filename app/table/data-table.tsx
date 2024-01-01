@@ -14,7 +14,6 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  setPageSize,
 } from "@tanstack/react-table";
 
 import {
