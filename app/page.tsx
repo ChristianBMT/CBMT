@@ -10,7 +10,7 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <main className="min-h-100dvh flex flex-col mx-auto max-w-[500px] px-6">
+    <main className="min-h-[calc(100dvh-48px)] h-[calc(100dvh-48px)] max-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6 overflow-y-hidden">
       <h1 className="font-bold text-3xl">Serving our Nation with Faith</h1>
       <h6 className="font-semibold text-xl mt-1">Devotions for BMT</h6>
       <div className="relative my-5">

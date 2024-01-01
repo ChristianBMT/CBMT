@@ -50,7 +50,7 @@ export default function Navbar() {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="p-4 border-r-0"
+        className="p-4 border-r-0 max-w-xs sm:max-w-xs"
         onEscapeKeyDown={() => closeNav()}
         onPointerDownOutside={() => closeNav()}
         onInteractOutside={() => closeNav()}
@@ -76,7 +76,6 @@ export default function Navbar() {
             onClick={() => navigateTo(`/`)}
           >
             Home
-            
           </Button>
           <Button
             variant={"ghost"}
