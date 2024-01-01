@@ -27,7 +27,7 @@ export default function Loading() {
   return (
     <div
       className={cn(
-        "absolute z-50 bg-white dark:bg-black h-[100dvh] w-full transition-opacity ease-in duration-500 p-5 flex flex-col justify-center items-center gap-5",
+        "fixed z-50 bg-white dark:bg-black h-[100dvh] w-full transition-opacity ease-in duration-500 p-5 flex flex-col justify-center items-center gap-5",
         shouldDisplay ? "" : "hiding"
       )}
     >

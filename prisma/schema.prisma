@@ -25,7 +25,7 @@ model Devotion {
   audio_file String?
 
   image String @default("/DailyImage.webp")
-  
+
   weekNo       Int
   Week         Week           @relation(fields: [weekNo], references: [week])
   Devotion_Tag Devotion_Tag[]
@@ -49,5 +49,6 @@ model Devotion_Tag {
 model Week {
   week     Int        @id
   date     DateTime   @db.Date
+  name     String     @default("hi")
   Devotion Devotion[]
 }

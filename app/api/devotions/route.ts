@@ -7,10 +7,7 @@ export async function GET(req: Request) {
     const allDevotion = await db.devotion.findMany({
       orderBy: [
         {
-          week: "desc",
-        },
-        {
-          devotion_date: "desc",
+          weekNo: "asc",
         },
         {
           title: "asc",

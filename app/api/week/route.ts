@@ -4,20 +4,14 @@ import { db } from "@/lib/db";
 
 export async function GET(req: Request) {
   try {
-    let today = new Date();
-    const getCurrentWeek = await db.week.findMany({
-      where: {
-        date: {
-          lte: today,
-        },
-      },
+    const week = await db.week.findMany({
       orderBy: [
         {
-          date: "desc",
+          week: "asc",
         },
       ],
     });
-    return NextResponse.json({ currentWeek: getCurrentWeek[0].week });
+    return NextResponse.json(week);
   } catch (error) {
     console.log(error);
     return NextResponse.json(

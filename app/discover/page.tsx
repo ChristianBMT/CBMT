@@ -12,16 +12,25 @@ const page = () => {
   return (
     <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6">
       <div className=" font-bold text-2xl">Discover</div>
-      <div className="my-5 relative w-full">
+      <div className="grid grid-rows-2 grid-flow-col justify-center items-center gap-4 mr-auto overflow-auto w-full p-3">
+        <CategoryBtn className="dark:bg-blue-500 min-w-max" text="Category 1" />
+        <CategoryBtn className="dark:bg-blue-500 min-w-max" text="Category 1" />
+        <CategoryBtn className="dark:bg-blue-500 min-w-max" text="Category 1" />
+        <CategoryBtn className="dark:bg-blue-500 min-w-max" text="Category 1" />
+        <CategoryBtn className="dark:bg-blue-500 min-w-max" text="Category 1" />
+        <CategoryBtn className="dark:bg-blue-500 min-w-max" text="Category 1" />
+        <CategoryBtn className="dark:bg-blue-500 min-w-max" text="Category 1" />
+        <CategoryBtn className="dark:bg-blue-500 min-w-max" text="Category 1" />
+      </div>
+      {/* <div className="my-5 relative w-full">
         <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 " />
         <Input
           className="pl-12 pr-3 py-2 w-full text-base font-normal  dark:bg-[#444444] border dark:border-[#444444] rounded-full transition ease-in-out focus:outline-none"
           type="email"
           placeholder="Search"
         />
-      </div>
+      </div> */}
       <div className="my-10">
-        <div className=" font-semibold text-2xl mb-2">Categories</div>
         <div className="overflow-x-auto">
           <div className="flex space-x-4">
             <CategoryBtn
