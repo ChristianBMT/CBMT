@@ -50,6 +50,7 @@ export const columns: ColumnDef<Devotion>[] = [
     },
     enableSorting: true,
     enableHiding: false,
+    accessorFn: (originalRow) => originalRow.weekNo.toString(),
   },
   {
     accessorKey: "title",
