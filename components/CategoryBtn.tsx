@@ -23,7 +23,7 @@ const CategoryBtn: React.FC<CategoryBtnProps> = ({
         variant="outline" 
         size="sm" 
         className={cn(
-          "mr-2 border-transparent text-white rounded-lg shadow-md focus:outline-none",
+          "border-transparent text-white rounded-lg shadow-md focus:outline-none",
           baseBgColorClass,
           hoverBgColorClass,
           className
