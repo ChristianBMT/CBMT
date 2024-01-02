@@ -11,7 +11,7 @@ type Tag = {
   name: string;
 };
 
-export default function discoverPage() {
+export default function DiscoverPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [tagData, setTagData] = useState<Tag[]>([]);
   const color = [
