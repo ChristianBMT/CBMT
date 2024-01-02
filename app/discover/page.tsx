@@ -127,7 +127,7 @@ export default function DiscoverPage() {
                 return;
               }
               return (
-                <div className="flex flex-col gap-3 mb-2">
+                <div className="flex flex-col gap-3 mb-2" key={"wrapper" + idx}>
                   <div className="flex justify-between items-center">
                     <h3 className="font-bold">{key}</h3>
                     <div

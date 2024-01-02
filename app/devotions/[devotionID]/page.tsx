@@ -89,7 +89,6 @@ export default function DevotionPage({ params }: DevotionPageParams) {
         localStorage.getItem("read") || "{}"
       );
       if (Object.keys(currentRead).includes(devotionObj.id)) {
-        console.log("hi");
         setIsRead(true);
       }
     }
@@ -254,9 +253,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
           </>
         ) : (
           <h1 className="text-xl font-bold text-center p-5">
-            Currently under trial.
-            <br />
-            More content coming soon!
+            Loading Content...
           </h1>
         )}
       </div>
