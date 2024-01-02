@@ -49,6 +49,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FaSearch } from "react-icons/fa";
 
 type Week = {
   week: number;
@@ -106,14 +107,17 @@ export function DataTable<TData, TValue>({
     <div className="flex flex-col items-center justify-center w-full">
       <div className="flex flex-col justify-center items-center py-4 w-full gap-4">
         {/* Add Dropdown for Week Filters */}
-        <Input
-          placeholder="Filter titles..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-          className="max-w-xs mr-auto"
-        />
+        <div className="flex w-full max-w-sm items-center space-x-2 mr-auto">
+          <FaSearch className="w-5 h-5 flex items-center justify-center aspect-square m-1"/>
+          <Input
+            placeholder="Filter titles..."
+            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("title")?.setFilterValue(event.target.value)
+            }
+            className="mr-auto"
+          />
+        </div>
         <div className="flex justify-between w-full gap-3">
           <Select
             defaultValue="all"
