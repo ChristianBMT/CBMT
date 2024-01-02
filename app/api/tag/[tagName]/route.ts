@@ -11,7 +11,6 @@ type TagDevotionPageParams = {
 
 export async function GET(req: Request, { params }: TagDevotionPageParams) {
   try {
-    console.log(params.tagName);
     const allDevotionWithTag = await db.Devotion_Tag.findMany({
       select: {
         Devotion: true,
