@@ -22,6 +22,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -31,16 +33,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 type DevotionPageParams = {
   params: {
@@ -59,6 +51,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
   const router = useRouter();
   const [devotionObj, setDevotionObj] = useState<Devotion>();
   const [allDevotion, setAllDevotion] = useState<Devotion[]>([]);
+  const [isRead, setIsRead] = useState<boolean>(false);
 
   async function getData() {
     let response = await fetch(
@@ -89,6 +82,18 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     getCurrentDevotion();
     getData();
   }, []);
+
+  useEffect(() => {
+    if (devotionObj) {
+      let currentRead: { [key: string]: boolean } = JSON.parse(
+        localStorage.getItem("read") || "{}"
+      );
+      if (Object.keys(currentRead).includes(devotionObj.id)) {
+        console.log("hi");
+        setIsRead(true);
+      }
+    }
+  }, [devotionObj]);
 
   return (
     <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px]  py-2">
@@ -153,9 +158,11 @@ export default function DevotionPage({ params }: DevotionPageParams) {
               )} */}
               {devotionObj.verse_id && (
                 <Card className="w-full mb-5 rounded-lg border border-slate-200 bg-white text-slate-950 shadow-sm dark:border-slate-800 dark:bg-slate-950 dark:text-slate-50">
-                  <CardHeader>
+                  <CardHeader className="py-6 px-1">
                     <CardTitle className="text-base text-center flex gap-3 items-center justify-center">
-                      <p className="text-lg">Today&apos;s Scripture:</p>
+                      <p className="text-lg whitespace-nowrap">
+                        Today&apos;s Scripture:
+                      </p>
                       <Button
                         variant={"secondary"}
                         className="font-bold bg-slate-100 text-slate-900 hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80"
@@ -221,6 +228,29 @@ export default function DevotionPage({ params }: DevotionPageParams) {
                 </CardContent>
               </Card>
             )}
+            <div className="my-5">
+              <div className="flex items-center space-x-2 justify-center">
+                <Switch
+                  id="showRead"
+                  checked={isRead}
+                  onCheckedChange={(value) => {
+                    // setUnreadOnly(value);
+                    let currentRead: { [key: string]: boolean } = JSON.parse(
+                      localStorage.getItem("read") || "{}"
+                    );
+                    setIsRead(value);
+                    if (value) {
+                      currentRead[devotionObj.id] = true;
+                      localStorage.setItem("read", JSON.stringify(currentRead));
+                    } else {
+                      delete currentRead[devotionObj.id];
+                      localStorage.setItem("read", JSON.stringify(currentRead));
+                    }
+                  }}
+                />
+                <Label htmlFor="showRead">Mark as Read</Label>
+              </div>
+            </div>
           </>
         ) : (
           <h1 className="text-xl font-bold text-center p-5">
