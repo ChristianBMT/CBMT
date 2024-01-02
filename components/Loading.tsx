@@ -41,6 +41,7 @@ export default function Loading() {
         height={500}
         alt=""
         className="w-1/2 aspect-square max-w-[300px]"
+        priority={true}
       />
     </div>
   );

@@ -64,6 +64,7 @@ export default function Navbar() {
                 width={500}
                 height={500}
                 className="aspect-square w-20"
+                priority={true}
               />
               <p>Christ in BMT</p>
             </div>
@@ -82,7 +83,7 @@ export default function Navbar() {
             className="w-full justify-start sm:justify-center"
             onClick={() => navigateTo(`/devotions`)}
           >
-            Devotions
+            BMT Devotions
           </Button>
           <Button
             variant={"ghost"}
@@ -94,17 +95,17 @@ export default function Navbar() {
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
-            onClick={() => navigateTo("/vision")}
+            onClick={() => navigateTo("/introduction")}
           >
-            Vision
+            Introduction
           </Button>
-          <Button
+          {/* <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
             onClick={() => navigateTo("/aboutus")}
           >
             About Us
-          </Button>
+          </Button> */}
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"

@@ -21,16 +21,15 @@ export async function GET(req: Request, { params }: TagDevotionPageParams) {
           name: params.tagName,
         },
       },
-      // orderBy: [
-      //   {
-      //     weekNo: "asc",
-      //   },
-      //   {
-      //     title: "asc",
-      //   },
-      // ],
+      orderBy: [
+        {
+          Devotion: { weekNo: "asc" },
+        },
+        {
+          Devotion: { title: "asc" },
+        },
+      ],
     });
-
     const allDevotion = allDevotionWithTag.map(
       (e: { Devotion: Devotion; tag: { id: string; name: string } }) => {
         return e.Devotion;

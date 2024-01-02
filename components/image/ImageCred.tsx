@@ -22,7 +22,8 @@ export default function ImageCred({
           width={500}
           height={500}
           alt={alt}
-          className={cn(className)}
+          className={cn(className, "bg-gray-500/50")}
+          priority={true}
         />
       }
       <div className="absolute bottom-0 right-0 text-xs bg-black/50 p-1 opacity-75">

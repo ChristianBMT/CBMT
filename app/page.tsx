@@ -10,16 +10,17 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <main className="min-h-[calc(100dvh-48px)] h-[calc(100dvh-48px)] max-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6 overflow-y-hidden">
+    <main className="min-h-[calc(100dvh-48px)] h-[calc(100dvh-48px)] max-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6 overflow-y-hidden mb-6">
       <h1 className="font-bold text-3xl">Serving our Nation with Faith</h1>
       <h6 className="font-semibold text-xl mt-1">Devotions for BMT</h6>
       <div className="relative my-5">
         <Image
-          className="w-full rounded-lg shadow-xl aspect-[3/2] object-cover"
+          className="w-full rounded-lg shadow-xl aspect-[3/2] object-cover bg-gray-500/50"
           src="/DailyImage.webp"
           width={500}
           height={500}
           alt="today"
+          priority={true}
         />
         <div className="absolute top-0 left-0 p-4 text-white text-left">
           <div

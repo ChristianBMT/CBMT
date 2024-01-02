@@ -37,30 +37,33 @@ export default function DiscoverPage() {
     setTagData(data);
   }
 
-  async function getDevotionData(tagName: string) {
+  async function getDevotionData() {
     let response = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + "/api/tag/" + tagName
+      process.env.NEXT_PUBLIC_SERVER_URL + "/api/devotions/tag"
     );
     let data = await response.json();
-    setDevotionPlans((prevState) => {
-      let currentObj = { ...prevState };
-      currentObj[tagName] = data;
-      return currentObj;
-    });
+    console.log(data);
+    setDevotionPlans(data);
+    // setDevotionPlans((prevState) => {
+    //   let currentObj = { ...prevState };
+    //   currentObj[tagName] = data;
+    //   return currentObj;
+    // });
   }
 
   useEffect(() => {
     getData();
+    getDevotionData();
   }, []);
 
-  useEffect(() => {
-    if (tagData) {
-      for (let tag of tagData.filter((e) => !e.name.includes("Prayer for"))) {
-        let tagName = tag.name;
-        getDevotionData(tagName);
-      }
-    }
-  }, [tagData]);
+  // useEffect(() => {
+  //   if (tagData) {
+  //     for (let tag of tagData.filter((e) => !e.name.includes("Prayer for"))) {
+  //       let tagName = tag.name;
+  //       getDevotionData(tagName);
+  //     }
+  //   }
+  // }, [tagData]);
 
   useEffect(() => {
     if (tagData && devotionPlans) {
@@ -121,9 +124,8 @@ export default function DiscoverPage() {
           </div>
         ) : (
           Object.keys(devotionPlans)
-            .sort()
             .map((key, idx) => {
-              if (devotionPlans[key].length == 0) {
+              if (devotionPlans[key].length == 0 || key.includes("Prayer for")) {
                 return;
               }
               return (

@@ -33,6 +33,7 @@ export default function DevotionCard({
         width={500}
         height={500}
         className="aspect-square w-full object-cover object-center rounded-lg"
+        priority={true}
       />
       <p className="text-gray-500 text-xs">Week {weekNo}</p>
       <p className="text-sm line-clamp-2">{title}</p>

@@ -50,6 +50,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FaSearch } from "react-icons/fa";
+import { MultiSelect } from "@/components/MultiSelect";
 
 type Week = {
   week: number;
@@ -57,22 +58,29 @@ type Week = {
   date: string;
 };
 
+type Tag = { value: string; label: string };
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   weekData: Week[];
+  tagData: Tag[];
+  onTagsChange: (selectedTags: Tag[]) => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   weekData,
+  tagData,
+  onTagsChange,
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [unreadOnly, setUnreadOnly] = useState<boolean>(false);
+
 
   useEffect(() => {
     console.log(weekData);
@@ -108,7 +116,7 @@ export function DataTable<TData, TValue>({
       <div className="flex flex-col justify-center items-center py-4 w-full gap-4">
         {/* Add Dropdown for Week Filters */}
         <div className="flex w-full max-w-sm items-center space-x-2 mr-auto">
-          <FaSearch className="w-5 h-5 flex items-center justify-center aspect-square m-1"/>
+          <FaSearch className="w-5 h-5 flex items-center justify-center aspect-square m-1" />
           <Input
             placeholder="Filter titles..."
             value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
@@ -118,6 +126,10 @@ export function DataTable<TData, TValue>({
             className="mr-auto"
           />
         </div>
+        <MultiSelect
+          tagData={tagData}
+          onTagsChange={onTagsChange}
+        ></MultiSelect>
         <div className="flex justify-between w-full gap-3">
           <Select
             defaultValue="all"
