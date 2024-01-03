@@ -4,7 +4,6 @@ import { Devotion } from "@/types";
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/DataTable";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 
 type Week = {
   week: number;
@@ -16,35 +15,9 @@ type Tag = { value: string; label: string };
 type OriginalTag = { id: string; name: string };
 
 export default function DevotionPage() {
-  const searchParams = useSearchParams();
-
-  const tagsQuery = searchParams.get("tags");
-
   const [allDevotion, setAllDevotion] = useState<Devotion[]>([]);
   const [week, setWeek] = useState<Week[]>([]);
   const [tag, setTag] = useState<Tag[]>([]);
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
-
-  useEffect(() => {
-    if (tagsQuery) {
-      let selectedQuery = tagsQuery.split(",").map((e) => {
-        return { value: e, label: e };
-      });
-      setSelectedTags(selectedQuery);
-    }
-  }, [tagsQuery]);
-
-  useEffect(() => {
-    console.log(tagsQuery);
-    if (selectedTags.length == 0) {
-      getData();
-    }
-  }, [selectedTags]);
-
-  const handleTagsChange = (newSelectedTags: Tag[]) => {
-    console.log(newSelectedTags);
-    setSelectedTags(newSelectedTags);
-  };
 
   async function getData() {
     let response = await fetch(
@@ -91,7 +64,6 @@ export default function DevotionPage() {
         data={allDevotion}
         weekData={week}
         tagData={tag}
-        onTagsChange={handleTagsChange}
       />
     </main>
   );

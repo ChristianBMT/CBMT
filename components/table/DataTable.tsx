@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
@@ -65,7 +66,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   weekData: Week[];
   tagData: Tag[];
-  onTagsChange: (selectedTags: Tag[]) => void;
 }
 
 export function DataTable<TData, TValue>({
@@ -73,14 +73,53 @@ export function DataTable<TData, TValue>({
   data,
   weekData,
   tagData,
-  onTagsChange,
 }: DataTableProps<TData, TValue>) {
+  const searchParams = useSearchParams();
+
+  const tagsQuery = searchParams.get("tags");
+
+  useEffect(() => {
+    if (tagsQuery && tagData) {
+      let selectedQuery = [];
+      for (let e of tagsQuery.split(",")) {
+        if (
+          tagData
+            .map((tag) => {
+              return tag.value;
+            })
+            .some((tag) => {
+              return tag == e;
+            })
+        ) {
+          selectedQuery.push({ value: e, label: e });
+          continue;
+        }
+      }
+      setSelectedTags(selectedQuery);
+    }
+  }, [tagData, tagsQuery]);
+
   const router = useRouter();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [unreadOnly, setUnreadOnly] = useState<boolean>(false);
 
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+
+  const handleTagsChange = (newSelectedTags: Tag[]) => {
+    setSelectedTags(newSelectedTags);
+    console.log(newSelectedTags);
+    if (newSelectedTags.length == 0) {
+      table.getColumn("tag")?.setFilterValue(undefined);
+    } else {
+      table.getColumn("tag")?.setFilterValue(
+        newSelectedTags.map((e) => {
+          return e.value;
+        })
+      );
+    }
+  };
 
   useEffect(() => {
     console.log(weekData);
@@ -104,6 +143,7 @@ export function DataTable<TData, TValue>({
       sorting,
       columnFilters,
       rowSelection,
+      columnVisibility: { tag: false },
     },
     getRowId: (row) => {
       let rowValue = row as Devotion;
@@ -127,7 +167,8 @@ export function DataTable<TData, TValue>({
         </div>
         <MultiSelect
           tagData={tagData}
-          onTagsChange={onTagsChange}
+          selectedTags={selectedTags}
+          onTagsChange={handleTagsChange}
         ></MultiSelect>
         <div className="flex justify-between w-full gap-3">
           <Select
@@ -231,7 +272,9 @@ export function DataTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                Loading Results...
+                {data.length > 0 && table.getFilteredRowModel().rows.length == 0
+                  ? "No Results Found"
+                  : "Loading Results..."}
               </TableCell>
             </TableRow>
           )}

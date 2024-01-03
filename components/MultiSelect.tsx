@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, KeyboardEvent } from "react";
+import { useState, useRef, useCallback, KeyboardEvent, useEffect } from "react";
 import { X } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -11,14 +11,24 @@ type Tag = { value: string; label: string };
 
 type MultiSelectProps = {
   tagData: Tag[];
+  selectedTags: Tag[];
   onTagsChange: (selectedTags: Tag[]) => void;
 };
 
-export function MultiSelect({ tagData, onTagsChange }: MultiSelectProps) {
+export function MultiSelect({
+  tagData,
+  selectedTags,
+  onTagsChange,
+}: MultiSelectProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<Tag[]>([]);
   const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    setSelected(selectedTags);
+    onTagsChange(selectedTags);
+  }, [selectedTags]);
 
   const handleUnselect = useCallback(
     (data: Tag) => {
