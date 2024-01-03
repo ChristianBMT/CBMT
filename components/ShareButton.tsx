@@ -1,7 +1,6 @@
 import { isMobile } from "react-device-detect";
 import { RWebShare } from "react-web-share";
 import { Button } from "@/components/ui/button";
-import { ShareIcon } from "@heroicons/react/20/solid";
 import {
   Popover,
   PopoverContent,
@@ -23,6 +22,7 @@ import {
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link, Mail } from "lucide-react";
+import { IoShareSocialSharp } from "react-icons/io5";
 
 type ShareButtonProps = {
   content: string;
@@ -37,7 +37,7 @@ export default function ShareButton({ content }: ShareButtonProps) {
         }}
       >
         <Button variant={"ghost"}>
-          <ShareIcon className="w-4 h-4" />
+          <IoShareSocialSharp className="w-5 h-5" />
         </Button>
       </RWebShare>
     );
@@ -46,7 +46,7 @@ export default function ShareButton({ content }: ShareButtonProps) {
       <Popover>
         <PopoverTrigger asChild>
           <Button variant={"ghost"}>
-            <ShareIcon className="w-4 h-4" />
+            <IoShareSocialSharp className="w-5 h-5" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-18 flex flex-col gap-2.5">
