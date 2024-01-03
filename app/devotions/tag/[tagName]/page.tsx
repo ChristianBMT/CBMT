@@ -17,9 +17,26 @@ type DevotionPageParams = {
   };
 };
 
+type Tag = { value: string; label: string };
+type OriginalTag = { id: string; name: string };
+
 export default function DevotionPage({ params }: DevotionPageParams) {
   const [allDevotion, setAllDevotion] = useState<Devotion[]>([]);
   const [week, setWeek] = useState<Week[]>([]);
+  const [tag, setTag] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  
+  useEffect(() => {
+    if (selectedTags.length == 0) {
+      getData();
+    }
+  }, [selectedTags]);
+
+  const handleTagsChange = (newSelectedTags: Tag[]) => {
+    console.log(newSelectedTags);
+    setSelectedTags(newSelectedTags);
+  };
+
   async function getData() {
     let response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/tag/${params.tagName}`
@@ -36,9 +53,19 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     setWeek(data);
   }
 
+  async function getTag() {
+    let response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/api/tag");
+    let data: OriginalTag[] = await response.json();
+    let tagData: Tag[] = data.map((e: OriginalTag) => {
+      return { value: e.id, label: e.name };
+    });
+    setTag(tagData);
+  }
+  
   useEffect(() => {
     getData();
     getWeek();
+    getTag();
   }, []);
 
   return (
@@ -47,7 +74,13 @@ export default function DevotionPage({ params }: DevotionPageParams) {
         All {params.tagName.replaceAll("%20", " ").replace("Prayer for", "")}{" "}
         Devotions
       </h1>
-      <DataTable columns={columns} data={allDevotion} weekData={week} />
+      <DataTable
+        columns={columns}
+        data={allDevotion}
+        weekData={week}
+        tagData={tag}
+        onTagsChange={handleTagsChange}
+      />
     </main>
   );
 }
