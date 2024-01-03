@@ -6,13 +6,23 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
+type Tag = { id: string; name: string };
+
 export default function Home() {
   const router = useRouter();
+  const [tagData, setTagData] = useState<Tag[]>([]);
+
+  async function getTag() {
+    let response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/api/tag");
+    let data: Tag[] = await response.json();
+    setTagData(data);
+  }
 
   useEffect(() => {
     if (document) {
       document.title = "Christ in BMT";
     }
+    getTag();
   }, []);
 
   return (
@@ -50,7 +60,29 @@ export default function Home() {
       </div>
       <h3 className="font-semibold text-xl">Browse Devotion Plans</h3>
       <div className="grid grid-cols-2 my-3 gap-4">
-        {[...new Array(4)].map((_, idx) => {
+        {tagData.map((value, idx) => {
+          return (
+            <div
+              key={"DevotionImage" + idx}
+              className="w-full h-full relative border rounded-lg dark:border-white/50 border-black/50 hover:cursor-pointer"
+              onClick={() => router.push(`/devotions?tags=${value.name}`)}
+            >
+              <h5 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 font-bold whitespace-pre text-white">
+                {value.name}
+              </h5>
+              <Image
+                className="blur-[1.5px] brightness-50 w-full rounded-lg shadow-xl aspect-[3/2] object-cover"
+                src={`/Devotion${(idx % 4) + 1}.jpeg`}
+                width={500}
+                height={500}
+                alt="today"
+                priority={true}
+              />
+            </div>
+          );
+        })}
+
+        {/* {[...new Array(4)].map((_, idx) => {
           return (
             <div key={"DevotionImage" + idx}>
               <Image
@@ -62,7 +94,7 @@ export default function Home() {
               />
             </div>
           );
-        })}
+        })} */}
       </div>
     </main>
   );
