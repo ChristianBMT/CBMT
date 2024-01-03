@@ -109,7 +109,6 @@ export function DataTable<TData, TValue>({
 
   const handleTagsChange = (newSelectedTags: Tag[]) => {
     setSelectedTags(newSelectedTags);
-    console.log(newSelectedTags);
     if (newSelectedTags.length == 0) {
       table.getColumn("tag")?.setFilterValue(undefined);
     } else {
@@ -122,11 +121,20 @@ export function DataTable<TData, TValue>({
   };
 
   useEffect(() => {
-    console.log(weekData);
     let currentRead: { [key: string]: boolean } = JSON.parse(
       localStorage.getItem("read") || "{}"
     );
     setRowSelection(currentRead);
+    setSorting([
+      {
+        id: "weekNo",
+        desc: false,
+      },
+      {
+        id: "title",
+        desc: false,
+      },
+    ]);
   }, []);
 
   const table = useReactTable({
@@ -174,7 +182,6 @@ export function DataTable<TData, TValue>({
           <Select
             defaultValue="all"
             onValueChange={(value) => {
-              console.log(value);
               if (value == "all") {
                 setColumnFilters([]);
                 return;
@@ -253,7 +260,6 @@ export function DataTable<TData, TValue>({
                         onClick={(e) => {
                           if (cell.id.includes("_select")) {
                             let element = e.target as HTMLElement;
-                            console.log(element.tagName);
                             return;
                           }
                           return router.push(`/devotions/${rowObj.id}`);

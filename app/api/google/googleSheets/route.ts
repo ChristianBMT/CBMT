@@ -43,9 +43,10 @@ export async function POST(req: Request) {
 
     let weekInsertData = [];
     for (let row of weekRows) {
+      let weekName: string = row.get("Name");
       weekInsertData.push({
         week: parseInt(row.get("WeekNo")),
-        date: new Date(row.get("Date")),
+        name: weekName.trim(),
       });
     }
 
@@ -61,8 +62,9 @@ export async function POST(req: Request) {
     let tagInsertData = [];
     let tagMap: { [key: number]: { name: string; tableID?: string } } = {};
     for (let row of tagRows) {
-      tagInsertData.push({ name: row.get("Name") });
-      tagMap[row.get("ID")] = { name: row.get("Name") };
+      let tagName = row.get("Name");
+      tagInsertData.push({ name: tagName.trim() });
+      tagMap[row.get("ID")] = { name: tagName.trim() };
     }
 
     const createManyTag = await db.tag.createMany({
@@ -74,7 +76,7 @@ export async function POST(req: Request) {
 
     tagData.forEach((element: { id: string; name: string }) => {
       for (let tag in tagMap) {
-        if (tagMap[tag]["name"] == element["name"]) {
+        if (tagMap[tag]["name"].trim() == element["name"].trim()) {
           tagMap[tag]["tableID"] = element["id"];
           break;
         }
@@ -120,28 +122,35 @@ export async function POST(req: Request) {
 
       // Audio File
       let audioData;
-      // if (!data.audio_file) {
-      //   let audioResponseBody: DevotionAudioBody = {
-      //     content: data.content,
-      //     author: data.author,
-      //     prayer: data.prayer,
-      //     title: data.title,
-      //     verse_id: data.verse_id,
-      //     bible_verse: bibleData ? bibleData.verse : "",
-      //   };
-      //   let audioResponse = await fetch(
-      //     process.env.NEXT_PUBLIC_SERVER_URL + "/api/devotions/audio",
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify(audioResponseBody),
-      //     }
-      //   );
-      //   audioData = await audioResponse.json();
-      // }
-      
+      if (
+        !data.audio_file &&
+        ![
+          "Finding Strength in Trusting God",
+          "You are God's Soldier",
+          "Letting God Lead",
+        ].includes(data.title)
+      ) {
+        let audioResponseBody: DevotionAudioBody = {
+          content: data.content,
+          author: data.author,
+          prayer: data.prayer,
+          title: data.title,
+          verse_id: data.verse_id,
+          bible_verse: bibleData ? bibleData.verse : "",
+        };
+        let audioResponse = await fetch(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/api/devotions/audio",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(audioResponseBody),
+          }
+        );
+        audioData = await audioResponse.json();
+      }
+
       devotionInsertData.push({
         ...data,
         docs: googleDocsID,
