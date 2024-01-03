@@ -48,7 +48,6 @@ model Devotion_Tag {
 
 model Week {
   week     Int        @id
-  date     DateTime   @db.Date
   name     String     @default("hi")
   Devotion Devotion[]
 }

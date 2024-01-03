@@ -21,7 +21,7 @@ export default function DevotionPage() {
 
   async function getData() {
     let response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/test`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions`
     );
     let data = await response.json();
     setAllDevotion(data);

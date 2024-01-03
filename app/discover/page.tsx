@@ -42,7 +42,6 @@ export default function DiscoverPage() {
       process.env.NEXT_PUBLIC_SERVER_URL + "/api/devotions/tag"
     );
     let data = await response.json();
-    console.log(data);
     setDevotionPlans(data);
     // setDevotionPlans((prevState) => {
     //   let currentObj = { ...prevState };
@@ -68,7 +67,7 @@ export default function DiscoverPage() {
   useEffect(() => {
     if (tagData && devotionPlans) {
       setLoading(false);
-      console.log(devotionPlans);
+      // console.log(devotionPlans);
     }
   }, [tagData, devotionPlans]);
 
