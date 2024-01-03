@@ -4,6 +4,7 @@ import { Devotion } from "@/types";
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/DataTable";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 type Week = {
   week: number;
@@ -15,12 +16,26 @@ type Tag = { value: string; label: string };
 type OriginalTag = { id: string; name: string };
 
 export default function DevotionPage() {
+  const searchParams = useSearchParams();
+
+  const tagsQuery = searchParams.get("tags");
+
   const [allDevotion, setAllDevotion] = useState<Devotion[]>([]);
   const [week, setWeek] = useState<Week[]>([]);
   const [tag, setTag] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
   useEffect(() => {
+    if (tagsQuery) {
+      let selectedQuery = tagsQuery.split(",").map((e) => {
+        return { value: e, label: e };
+      });
+      setSelectedTags(selectedQuery);
+    }
+  }, [tagsQuery]);
+
+  useEffect(() => {
+    console.log(tagsQuery);
     if (selectedTags.length == 0) {
       getData();
     }
@@ -33,7 +48,7 @@ export default function DevotionPage() {
 
   async function getData() {
     let response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/test`
     );
     let data = await response.json();
     setAllDevotion(data);
@@ -51,7 +66,7 @@ export default function DevotionPage() {
     let response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/api/tag");
     let data: OriginalTag[] = await response.json();
     let tagData: Tag[] = data.map((e: OriginalTag) => {
-      return { value: e.id, label: e.name };
+      return { value: e.name, label: e.name };
     });
     setTag(tagData);
   }

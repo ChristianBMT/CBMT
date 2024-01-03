@@ -60,7 +60,7 @@ export function MultiSelect({ tagData, onTagsChange }: MultiSelectProps) {
 
   return (
     <Command onKeyDown={handleKeyDown} className="overflow-visible">
-      <div className="group px-3 py-2 text-sm rounded-md focus-within:ring-1 focus-within:ring-white/25 focus-within:ring-offset-2">
+      <div className="group px-3 py-2 text-sm rounded-md border border-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-950 dark:placeholder:text-zinc-400 dark:focus-visible:ring-zinc-300">
         <div className="flex gap-1 flex-wrap">
           {selected.map((data) => {
             return (
@@ -98,7 +98,7 @@ export function MultiSelect({ tagData, onTagsChange }: MultiSelectProps) {
       </div>
       <div className="relative mt-2">
         {open && selectables.length > 0 ? (
-          <div className="absolute w-full z-10 top-0 rounded-md bg-black text-popover-foreground shadow-md outline-none animate-in">
+          <div className="absolute w-full z-10 top-0 rounded-md bg-white dark:bg-black text-popover-foreground shadow-md outline-none animate-in">
             <CommandGroup className="h-full overflow-auto">
               {selectables.map((data) => {
                 return (

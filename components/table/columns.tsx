@@ -75,4 +75,17 @@ export const columns: ColumnDef<Devotion>[] = [
     enableSorting: false,
     enableHiding: true,
   },
+  {
+    accessorKey: "tag",
+    header: "Tag",
+    enableSorting: false,
+    enableHiding: true,
+    cell: ({ row }) => {
+      // console.log(row.original.tag);
+      return <div>{row.original.tag?.map((e) => e.name).join(",")}</div>;
+    },
+    accessorFn: (row) => {
+      console.log(row);
+    },
+  },
 ];
