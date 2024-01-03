@@ -134,17 +134,20 @@ export default function DevotionPage({ params }: DevotionPageParams) {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {allDevotion.map((devotion, idx) => {
-                  return (
-                    <SelectItem
-                      value={devotion.id}
-                      key={"Select-" + idx}
-                      className="w-[300px] text-ellipsis whitespace-nowrap overflow-hidden pl-2 [&>:first-child]:hidden"
-                    >
-                      Week {devotion.weekNo}: {devotion.title}
-                    </SelectItem>
-                  );
-                })}
+                {allDevotion
+                  .sort((a, b) => a.title.localeCompare(b.title))
+                  .sort((a, b) => a.weekNo - b.weekNo)
+                  .map((devotion, idx) => {
+                    return (
+                      <SelectItem
+                        value={devotion.id}
+                        key={"Select-" + idx}
+                        className="w-[300px] text-ellipsis whitespace-nowrap overflow-hidden pl-2 [&>:first-child]:hidden"
+                      >
+                        Week {devotion.weekNo}: {devotion.title}
+                      </SelectItem>
+                    );
+                  })}
               </SelectGroup>
             </SelectContent>
           </Select>
