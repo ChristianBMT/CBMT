@@ -9,6 +9,12 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter();
 
+  useEffect(() => {
+    if (document) {
+      document.title = "Christ in BMT";
+    }
+  }, []);
+
   return (
     <main className="min-h-[calc(100dvh-48px)] h-[calc(100dvh-48px)] max-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6 overflow-y-hidden mb-6">
       <h1 className="font-bold text-3xl">Serving our Nation with Faith</h1>

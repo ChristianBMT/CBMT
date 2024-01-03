@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { CategoryButton } from "@/components/CategoryButton";
 import DevotionCard from "@/components/devotion/DevotionCard";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -77,7 +77,35 @@ export default function DiscoverPage() {
       <h1 className=" font-bold text-2xl mt-2">Discover</h1>
       <h3 className="font-bold">Search by Topic</h3>
       <div className="grid grid-rows-2 grid-flow-col justify-start items-center gap-4 overflow-auto w-full">
-        {loading
+        <Suspense
+          fallback={
+            <>
+              {[...new Array(8)].map((_, idx) => {
+                return (
+                  <Skeleton
+                    className="h-10 w-[125px] rounded-md"
+                    key={"SkeletonKey" + idx}
+                  />
+                );
+              })}
+            </>
+          }
+        >
+          {tagData
+            .filter((e) => e.name.includes("Prayer for"))
+            .map((value, idx) => {
+              let btnColor = color[idx % color.length];
+              return (
+                <CategoryButton
+                  color={btnColor}
+                  text={value.name.replace("Prayer for", "")}
+                  key={"Category" + value.id}
+                  href={`/devotions/tag/${value.name}`}
+                />
+              );
+            })}
+        </Suspense>
+        {/* {loading
           ? [...new Array(8)].map((_, idx) => {
               return (
                 <Skeleton
@@ -98,7 +126,7 @@ export default function DiscoverPage() {
                     href={`/devotions/tag/${value.name}`}
                   />
                 );
-              })}
+              })} */}
       </div>
       <div className="mt-3 flex flex-col gap-3 mb-5">
         <h3 className="font-semibold text-xl">Browse Devotion Plans</h3>
@@ -123,41 +151,40 @@ export default function DiscoverPage() {
             </div>
           </div>
         ) : (
-          Object.keys(devotionPlans)
-            .map((key, idx) => {
-              if (devotionPlans[key].length == 0 || key.includes("Prayer for")) {
-                return;
-              }
-              return (
-                <div className="flex flex-col gap-3 mb-2" key={"wrapper" + idx}>
-                  <div className="flex justify-between items-center">
-                    <h3 className="font-bold">{key}</h3>
-                    <div
-                      className="text-xs"
-                      onClick={() => router.push(`/devotions/tag/${key}`)}
-                    >
-                      SEE ALL &gt;
-                    </div>
-                  </div>
-                  <div className="flex overflow-x-scroll gap-3 h-[189px]">
-                    {devotionPlans[key]
-                      .slice(0, Math.min(devotionPlans[key].length, 5))
-                      .map((data, idx) => {
-                        return (
-                          <DevotionCard
-                            key={"devotion-" + key + idx}
-                            id={data.id}
-                            imageSrc={data.image}
-                            weekNo={data.weekNo}
-                            title={data.title}
-                            className="w-[125px]"
-                          />
-                        );
-                      })}
+          Object.keys(devotionPlans).map((key, idx) => {
+            if (devotionPlans[key].length == 0 || key.includes("Prayer for")) {
+              return;
+            }
+            return (
+              <div className="flex flex-col gap-3 mb-2" key={"wrapper" + idx}>
+                <div className="flex justify-between items-center">
+                  <h3 className="font-bold">{key}</h3>
+                  <div
+                    className="text-xs"
+                    onClick={() => router.push(`/devotions/tag/${key}`)}
+                  >
+                    SEE ALL &gt;
                   </div>
                 </div>
-              );
-            })
+                <div className="flex overflow-x-scroll gap-3 h-[189px]">
+                  {devotionPlans[key]
+                    .slice(0, Math.min(devotionPlans[key].length, 5))
+                    .map((data, idx) => {
+                      return (
+                        <DevotionCard
+                          key={"devotion-" + key + idx}
+                          id={data.id}
+                          imageSrc={data.image}
+                          weekNo={data.weekNo}
+                          title={data.title}
+                          className="w-[125px]"
+                        />
+                      );
+                    })}
+                </div>
+              </div>
+            );
+          })
         )}
       </div>
     </main>

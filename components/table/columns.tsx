@@ -81,11 +81,18 @@ export const columns: ColumnDef<Devotion>[] = [
     enableSorting: false,
     enableHiding: true,
     cell: ({ row }) => {
-      // console.log(row.original.tag);
       return <div>{row.original.tag?.map((e) => e.name).join(",")}</div>;
     },
     accessorFn: (row) => {
-      console.log(row);
+      return row.tag?.map((e) => e.name);
+    },
+    filterFn: (row, columnId, value) => {
+      const selectedValues = value;
+      const values: any = new Set(row.getValue(columnId) as string[]);
+      const included = [...selectedValues].some((selectedValue) =>
+        values.has(selectedValue)
+      );
+      return included;
     },
   },
 ];

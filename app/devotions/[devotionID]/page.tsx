@@ -91,6 +91,9 @@ export default function DevotionPage({ params }: DevotionPageParams) {
       if (Object.keys(currentRead).includes(devotionObj.id)) {
         setIsRead(true);
       }
+      document.title = `Week ${devotionObj?.weekNo ?? ""}: ${
+        devotionObj?.title
+      }`;
     }
   }, [devotionObj]);
 
