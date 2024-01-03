@@ -13,6 +13,9 @@ export async function GET(req: Request) {
         {
           title: "asc",
         },
+        {
+          weekNo: "asc",
+        },
       ],
     });
     for await (let devotion of allDevotion) {
@@ -27,6 +30,18 @@ export async function GET(req: Request) {
             id: devotionId,
           },
         },
+        orderBy: [
+          {
+            Devotion: {
+              title: "asc",
+            },
+          },
+          {
+            Devotion: {
+              weekNo: "asc",
+            },
+          },
+        ],
       });
       devotion["tag"] = allDevotionWithTag.map((e: { tag: Tag }) => e.tag);
     }

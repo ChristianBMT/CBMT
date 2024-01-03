@@ -125,6 +125,16 @@ export function DataTable<TData, TValue>({
       localStorage.getItem("read") || "{}"
     );
     setRowSelection(currentRead);
+    setSorting([
+      {
+        id: "weekNo",
+        desc: false,
+      },
+      {
+        id: "title",
+        desc: false,
+      },
+    ]);
   }, []);
 
   const table = useReactTable({

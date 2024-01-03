@@ -57,9 +57,9 @@ export default function Navbar() {
       >
         <SheetHeader>
           <SheetTitle onClick={() => navigateTo("/")} className="text-xl">
-            <div className="flex gap-5 items-center">
+            <div className="flex gap-2 items-center">
               <Image
-                src="/DailyImage.webp"
+                src="/CBMT Mascot.png"
                 alt=""
                 width={500}
                 height={500}

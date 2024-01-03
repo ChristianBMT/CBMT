@@ -122,7 +122,14 @@ export async function POST(req: Request) {
 
       // Audio File
       let audioData;
-      if (!data.audio_file) {
+      if (
+        !data.audio_file &&
+        ![
+          "Finding Strength in Trusting God",
+          "You are God's Soldier",
+          "Letting God Lead",
+        ].includes(data.title)
+      ) {
         let audioResponseBody: DevotionAudioBody = {
           content: data.content,
           author: data.author,
