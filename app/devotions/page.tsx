@@ -77,6 +77,12 @@ export default function DevotionPage() {
     getTag();
   }, []);
 
+  useEffect(() => {
+    if (document) {
+      document.title = "Christ in BMT";
+    }
+  }, []);
+
   return (
     <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6 pb-6">
       <h1 className="font-semibold text-xl text-center">All Devotions</h1>

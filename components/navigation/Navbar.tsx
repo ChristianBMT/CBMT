@@ -85,13 +85,13 @@ export default function Navbar() {
           >
             BMT Devotions
           </Button>
-          <Button
+          {/* <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
             onClick={() => navigateTo("/discover")}
           >
             Discover
-          </Button>
+          </Button> */}
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
