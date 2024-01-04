@@ -15,6 +15,15 @@ export default function Home() {
   async function getTag() {
     let response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/api/tag");
     let data: Tag[] = await response.json();
+    let tagName = data.map((e) => e.name);
+    const index = tagName.indexOf("Pre-Enlistment");
+    if (index > -1) {
+      // Remove the specific string from its current position
+      let pos = data.splice(index, 1)[0];
+
+      // Add it to the front of the array
+      data.unshift(pos);
+    }
     setTagData(data);
   }
 
