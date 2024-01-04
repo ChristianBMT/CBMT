@@ -76,7 +76,7 @@ export default function Home() {
               className="w-full h-full relative border rounded-lg dark:border-white/50 border-black/50 hover:cursor-pointer"
               onClick={() => router.push(`/devotions?tags=${value.name}`)}
             >
-              <h5 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 font-bold whitespace-pre text-white">
+              <h5 className="w-full text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 font-bold text-white">
                 {value.name}
               </h5>
               <Image
@@ -90,20 +90,6 @@ export default function Home() {
             </div>
           );
         })}
-
-        {/* {[...new Array(4)].map((_, idx) => {
-          return (
-            <div key={"DevotionImage" + idx}>
-              <Image
-                className="w-full rounded-lg shadow-xl aspect-[3/2] object-cover"
-                src={`/Devotion${idx + 1}.jpeg`}
-                width={500}
-                height={500}
-                alt="today"
-              />
-            </div>
-          );
-        })} */}
       </div>
     </main>
   );
