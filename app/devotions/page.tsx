@@ -41,6 +41,15 @@ export default function DevotionPage() {
     let tagData: Tag[] = data.map((e: OriginalTag) => {
       return { value: e.name, label: e.name };
     });
+    let tagName = data.map((e) => e.name);
+    const index = tagName.indexOf("Pre-Enlistment");
+    if (index > -1) {
+      // Remove the specific string from its current position
+      let pos = tagData.splice(index, 1)[0];
+
+      // Add it to the front of the array
+      tagData.unshift(pos);
+    }
     setTag(tagData);
   }
 
