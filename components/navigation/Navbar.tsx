@@ -78,13 +78,6 @@ export default function Navbar() {
           >
             Home
           </Button>
-          <Button
-            variant={"ghost"}
-            className="w-full justify-start sm:justify-center"
-            onClick={() => navigateTo(`/devotions`)}
-          >
-            BMT Devotions
-          </Button>
           {/* <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
@@ -98,6 +91,13 @@ export default function Navbar() {
             onClick={() => navigateTo("/introduction")}
           >
             Introduction
+          </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start sm:justify-center"
+            onClick={() => navigateTo(`/devotions`)}
+          >
+            BMT Devotions
           </Button>
           {/* <Button
             variant={"ghost"}

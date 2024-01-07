@@ -101,6 +101,7 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px]  py-2">
       <ImageCred
         src={devotionObj?.image || "/DailyImage.webp"}
+        author={devotionObj?.image_source || "Anonymous"}
         className="w-full aspect-[3/2]"
       />
       <div className="p-2 pb-[3.5rem]">
