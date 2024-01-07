@@ -101,7 +101,7 @@ export function MultiSelect({
             onValueChange={setInputValue}
             onBlur={() => setOpen(false)}
             onFocus={() => setOpen(true)}
-            placeholder="Filter tags"
+            placeholder="Filter topics"
             className="ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1 focus-within:ring-0"
           />
         </div>

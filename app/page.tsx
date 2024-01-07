@@ -67,7 +67,7 @@ export default function Home() {
           </Button>
         </div>
       </div>
-      <h3 className="font-semibold text-xl">Browse Devotion Plans</h3>
+      <h3 className="font-semibold text-xl">Browse Devotion Topics</h3>
       <div className="grid grid-cols-2 my-3 gap-4">
         {tagData.map((value, idx) => {
           return (

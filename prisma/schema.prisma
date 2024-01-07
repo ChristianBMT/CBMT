@@ -25,6 +25,7 @@ model Devotion {
   audio_file String?
 
   image String @default("/DailyImage.webp")
+  image_source String @default("Anonymous")
 
   weekNo       Int
   Week         Week           @relation(fields: [weekNo], references: [week])
