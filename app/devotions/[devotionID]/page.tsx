@@ -34,7 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 type DevotionPageParams = {
   params: {
@@ -60,13 +60,6 @@ export default function DevotionPage({ params }: DevotionPageParams) {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions`
     );
     let data = await response.json();
-    // currentDevotionIdx tells current devotion idx
-    // Button increment
-    let currentDevotionIdx = data.findIndex(
-      (devotion: Devotion) => devotion.id == params.devotionID
-    );
-    let currentDevotion = data.splice(currentDevotionIdx, 1)[0];
-    data.unshift(currentDevotion);
     setAllDevotion(data);
   }
 
@@ -88,6 +81,19 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     );
     if (currentDevotionIdx < allDevotion.length - 1) {
       router.push(`/devotions/${allDevotion[currentDevotionIdx + 1].id}`);
+    } else {
+      router.push(`/devotions/${allDevotion[0].id}`);
+    }
+  }
+
+  async function decrementDevotionIdx() {
+    let currentDevotionIdx = allDevotion.findIndex(
+      (devotion: Devotion) => devotion.id == params.devotionID
+    );
+    if (currentDevotionIdx > 0) {
+      router.push(`/devotions/${allDevotion[currentDevotionIdx - 1].id}`);
+    } else {
+      router.push(`/devotions/${allDevotion[allDevotion.length - 1].id}`);
     }
   }
 
@@ -248,11 +254,16 @@ export default function DevotionPage({ params }: DevotionPageParams) {
               </Card>
             )}
             <div className="my-5">
-              <div className="flex items-center w-full">
-                <div className="flex-[1]"></div> {/* Smaller left box */}
-                <div className="flex-[2] flex justify-center items-center gap-4">
-                  {" "}
-                  {/* Larger center box for Switch and Label */}
+              <div className="flex items-center w-full justify-between">
+                <Button
+                  className="flex gap-2 items-center justify-center"
+                  variant={"secondary"}
+                  onClick={decrementDevotionIdx}
+                >
+                  <FaArrowLeft />
+                  <div>Previous</div>
+                </Button>
+                <div className="flex justify-center items-center gap-4">
                   <Switch
                     id="showRead"
                     checked={isRead}
@@ -278,14 +289,14 @@ export default function DevotionPage({ params }: DevotionPageParams) {
                   />
                   <Label htmlFor="showRead">Mark as Read</Label>
                 </div>
-                <div className="flex-[1] flex justify-end space-x-2">
-                  {" "}
-                  {/* Right box for Button */}
-                  <Button className='mr-2 space-x-1' onClick={incrementDevotionIdx}>
-                    <div>Next</div>
-                    <FaArrowRight />
-                  </Button>
-                </div>
+                <Button
+                  className="flex gap-2 items-center justify-center"
+                  variant={"secondary"}
+                  onClick={incrementDevotionIdx}
+                >
+                  <div>Next</div>
+                  <FaArrowRight />
+                </Button>
               </div>
             </div>
           </>
