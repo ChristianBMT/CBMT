@@ -34,6 +34,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { FaArrowRight } from "react-icons/fa6";
+
 type DevotionPageParams = {
   params: {
     devotionID: string;
@@ -58,6 +60,8 @@ export default function DevotionPage({ params }: DevotionPageParams) {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions`
     );
     let data = await response.json();
+    // currentDevotionIdx tells current devotion idx
+    // Button increment
     let currentDevotionIdx = data.findIndex(
       (devotion: Devotion) => devotion.id == params.devotionID
     );
@@ -76,6 +80,15 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     }
 
     setDevotionObj(data);
+  }
+
+  async function incrementDevotionIdx() {
+    let currentDevotionIdx = allDevotion.findIndex(
+      (devotion: Devotion) => devotion.id == params.devotionID
+    );
+    if (currentDevotionIdx < allDevotion.length - 1) {
+      router.push(`/devotions/${allDevotion[currentDevotionIdx + 1].id}`);
+    }
   }
 
   useEffect(() => {
@@ -234,26 +247,44 @@ export default function DevotionPage({ params }: DevotionPageParams) {
               </Card>
             )}
             <div className="my-5">
-              <div className="flex items-center space-x-2 justify-center">
-                <Switch
-                  id="showRead"
-                  checked={isRead}
-                  onCheckedChange={(value) => {
-                    // setUnreadOnly(value);
-                    let currentRead: { [key: string]: boolean } = JSON.parse(
-                      localStorage.getItem("read") || "{}"
-                    );
-                    setIsRead(value);
-                    if (value) {
-                      currentRead[devotionObj.id] = true;
-                      localStorage.setItem("read", JSON.stringify(currentRead));
-                    } else {
-                      delete currentRead[devotionObj.id];
-                      localStorage.setItem("read", JSON.stringify(currentRead));
-                    }
-                  }}
-                />
-                <Label htmlFor="showRead">Mark as Read</Label>
+              <div className="flex items-center w-full">
+                <div className="flex-[1]"></div> {/* Smaller left box */}
+                <div className="flex-[2] flex justify-center items-center gap-4">
+                  {" "}
+                  {/* Larger center box for Switch and Label */}
+                  <Switch
+                    id="showRead"
+                    checked={isRead}
+                    onCheckedChange={(value) => {
+                      let currentRead: { [key: string]: boolean } = JSON.parse(
+                        localStorage.getItem("read") || "{}"
+                      );
+                      setIsRead(value);
+                      if (value) {
+                        currentRead[devotionObj.id] = true;
+                        localStorage.setItem(
+                          "read",
+                          JSON.stringify(currentRead)
+                        );
+                      } else {
+                        delete currentRead[devotionObj.id];
+                        localStorage.setItem(
+                          "read",
+                          JSON.stringify(currentRead)
+                        );
+                      }
+                    }}
+                  />
+                  <Label htmlFor="showRead">Mark as Read</Label>
+                </div>
+                <div className="flex-[1] flex justify-end space-x-2">
+                  {" "}
+                  {/* Right box for Button */}
+                  <Button className='mr-2 space-x-1' onClick={incrementDevotionIdx}>
+                    <div>Next</div>
+                    <FaArrowRight />
+                  </Button>
+                </div>
               </div>
             </div>
           </>
