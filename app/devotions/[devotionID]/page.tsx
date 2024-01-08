@@ -34,6 +34,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+
 type DevotionPageParams = {
   params: {
     devotionID: string;
@@ -58,11 +60,6 @@ export default function DevotionPage({ params }: DevotionPageParams) {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/devotions`
     );
     let data = await response.json();
-    let currentDevotionIdx = data.findIndex(
-      (devotion: Devotion) => devotion.id == params.devotionID
-    );
-    let currentDevotion = data.splice(currentDevotionIdx, 1)[0];
-    data.unshift(currentDevotion);
     setAllDevotion(data);
   }
 
@@ -76,6 +73,28 @@ export default function DevotionPage({ params }: DevotionPageParams) {
     }
 
     setDevotionObj(data);
+  }
+
+  async function incrementDevotionIdx() {
+    let currentDevotionIdx = allDevotion.findIndex(
+      (devotion: Devotion) => devotion.id == params.devotionID
+    );
+    if (currentDevotionIdx < allDevotion.length - 1) {
+      router.push(`/devotions/${allDevotion[currentDevotionIdx + 1].id}`);
+    } else {
+      router.push(`/devotions/${allDevotion[0].id}`);
+    }
+  }
+
+  async function decrementDevotionIdx() {
+    let currentDevotionIdx = allDevotion.findIndex(
+      (devotion: Devotion) => devotion.id == params.devotionID
+    );
+    if (currentDevotionIdx > 0) {
+      router.push(`/devotions/${allDevotion[currentDevotionIdx - 1].id}`);
+    } else {
+      router.push(`/devotions/${allDevotion[allDevotion.length - 1].id}`);
+    }
   }
 
   useEffect(() => {
@@ -235,26 +254,49 @@ export default function DevotionPage({ params }: DevotionPageParams) {
               </Card>
             )}
             <div className="my-5">
-              <div className="flex items-center space-x-2 justify-center">
-                <Switch
-                  id="showRead"
-                  checked={isRead}
-                  onCheckedChange={(value) => {
-                    // setUnreadOnly(value);
-                    let currentRead: { [key: string]: boolean } = JSON.parse(
-                      localStorage.getItem("read") || "{}"
-                    );
-                    setIsRead(value);
-                    if (value) {
-                      currentRead[devotionObj.id] = true;
-                      localStorage.setItem("read", JSON.stringify(currentRead));
-                    } else {
-                      delete currentRead[devotionObj.id];
-                      localStorage.setItem("read", JSON.stringify(currentRead));
-                    }
-                  }}
-                />
-                <Label htmlFor="showRead">Mark as Read</Label>
+              <div className="flex items-center w-full justify-between">
+                <Button
+                  className="flex gap-2 items-center justify-center"
+                  variant={"secondary"}
+                  onClick={decrementDevotionIdx}
+                >
+                  <FaArrowLeft />
+                  <div>Previous</div>
+                </Button>
+                <div className="flex justify-center items-center gap-4">
+                  <Switch
+                    id="showRead"
+                    checked={isRead}
+                    onCheckedChange={(value) => {
+                      let currentRead: { [key: string]: boolean } = JSON.parse(
+                        localStorage.getItem("read") || "{}"
+                      );
+                      setIsRead(value);
+                      if (value) {
+                        currentRead[devotionObj.id] = true;
+                        localStorage.setItem(
+                          "read",
+                          JSON.stringify(currentRead)
+                        );
+                      } else {
+                        delete currentRead[devotionObj.id];
+                        localStorage.setItem(
+                          "read",
+                          JSON.stringify(currentRead)
+                        );
+                      }
+                    }}
+                  />
+                  <Label htmlFor="showRead">Mark as Read</Label>
+                </div>
+                <Button
+                  className="flex gap-2 items-center justify-center"
+                  variant={"secondary"}
+                  onClick={incrementDevotionIdx}
+                >
+                  <div>Next</div>
+                  <FaArrowRight />
+                </Button>
               </div>
             </div>
           </>
