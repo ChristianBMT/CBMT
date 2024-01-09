@@ -42,7 +42,6 @@ export async function GET(req: Request) {
         }
       );
     }
-    // console.log(allDevotionWithTag);
     return NextResponse.json(output);
   } catch (error) {
     console.log(error);

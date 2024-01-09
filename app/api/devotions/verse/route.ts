@@ -103,7 +103,6 @@ export async function POST(req: Request) {
   let startVerse = parseInt(match[3]);
   const endVerse = match[5] ? parseInt(match[5]) : startVerse;
 
-  // Converting to numbers
   const bookNum = bookNumberMap[bookName];
 
   const verseCode = [];
@@ -126,23 +125,6 @@ export async function POST(req: Request) {
       `https://bible-go-api.rkeplin.com/v1/books/1/chapters/1/${code}?translation=NIV`
     ).then((response) => response.json())
   );
-
-  // try {
-  //   const results: VerseData[] = await Promise.all(fetchPromises);
-
-  //   // Concatenating all results into a single object
-  //   const concatenatedResult = results.reduce((combined, result) => {
-  //     combined.push(result);
-  //     return combined;
-  //   }, [] as VerseData[]);
-
-  //   return new NextResponse(JSON.stringify(concatenatedResult), {
-  //     status: 200,
-  //   });
-  // } catch (error) {
-  //   console.error("Error fetching Bible verses", error);
-  //   return new NextResponse("Failed to fetch Bible verses", { status: 500 });
-  // }
 
   try {
     const results = await Promise.all(fetchPromises);
