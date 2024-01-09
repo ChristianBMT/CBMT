@@ -42,7 +42,7 @@ export default function DevotionPage() {
       return { value: e.name, label: e.name };
     });
     let tagName = data.map((e) => e.name);
-    const index = tagName.indexOf("Pre-Enlistment");
+    const index = tagName.indexOf("Enlistment");
     if (index > -1) {
       // Remove the specific string from its current position
       let pos = tagData.splice(index, 1)[0];
