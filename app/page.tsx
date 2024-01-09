@@ -16,7 +16,7 @@ export default function Home() {
     let response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/api/tag");
     let data: Tag[] = await response.json();
     let tagName = data.map((e) => e.name);
-    const index = tagName.indexOf("Pre-Enlistment");
+    const index = tagName.indexOf("Enlistment");
     if (index > -1) {
       let pos = data.splice(index, 1)[0];
       data.unshift(pos);
