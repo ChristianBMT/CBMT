@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { BsInfoCircle } from "react-icons/bs";
 
 type Tag = { id: string; name: string };
 
@@ -34,7 +35,17 @@ export default function Home() {
   return (
     <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6 mb-6">
       <h1 className="font-bold text-3xl">Serving our Nation with Faith</h1>
-      <h6 className="font-semibold text-xl mt-1">Devotions for BMT</h6>
+      <div className="flex gap-1 items-center mt-1">
+        <h6 className="font-semibold text-xl">Devotions for BMT</h6>
+        <Button
+          onClick={() => router.push("/foreword")}
+          variant={"ghost"}
+          size={"sm"}
+          className="text-xl"
+        >
+          <BsInfoCircle />
+        </Button>
+      </div>
       <div className="relative my-5">
         <Image
           className="w-full rounded-lg shadow-xl aspect-[3/2] object-cover bg-gray-500/50"
@@ -78,7 +89,7 @@ export default function Home() {
               </h5>
               <Image
                 className="blur-[1.5px] brightness-50 w-full rounded-lg shadow-xl aspect-[3/2] object-cover"
-                src={`/Devotion${(idx % 4) + 1}.jpeg`}
+                src={`/Devotion${(idx % 6) + 1}.jpeg`}
                 width={500}
                 height={500}
                 alt="today"

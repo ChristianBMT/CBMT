@@ -36,6 +36,13 @@ export default function Navbar() {
     setOpen(false);
   }
 
+  function contactUs() {
+    alert("FEATURE IN PROGRESS");
+    //   (window.location.href =
+    //     "mailto:christianbmt2827@gmail.com?subject=Christ in BMT Support&body=Hi,I found this website")
+    // )
+  }
+
   return (
     <Sheet open={open}>
       <SheetTrigger asChild>
@@ -88,9 +95,9 @@ export default function Navbar() {
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
-            onClick={() => navigateTo("/introduction")}
+            onClick={() => navigateTo("/foreword")}
           >
-            Introduction
+            Foreword
           </Button>
           <Button
             variant={"ghost"}
@@ -99,19 +106,12 @@ export default function Navbar() {
           >
             BMT Devotions
           </Button>
-          {/* <Button
-            variant={"ghost"}
-            className="w-full justify-start sm:justify-center"
-            onClick={() => navigateTo("/aboutus")}
-          >
-            About Us
-          </Button> */}
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
-            onClick={() => navigateTo("/contact")}
+            onClick={() => contactUs()}
           >
-            Contacts Us
+            Contact Us
           </Button>
           <div className="w-full mt-auto">
             <ThemeToggle></ThemeToggle>
