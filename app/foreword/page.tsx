@@ -99,12 +99,12 @@ export default function Foreword() {
               fail, for he is with you.
             </p>
             <p>
-              Thank you for your service, and may you experience God's love for
-              you in BMT, in your National Service, and for every single day of
-              your life.
+              Thank you for your service, and may you experience God&apos;s love
+              for you in BMT, in your National Service, and for every single day
+              of your life.
             </p>
             <p className="mt-3">
-              In God's Army,
+              In God&apos;'s Army,
               <br />
               <span className="font-['Brush_Script_MT'] text-3xl">David</span>
             </p>
