@@ -106,7 +106,7 @@ export default function Foreword() {
             <p className="mt-3">
               In God&apos;s Army,
               <br />
-              <span className="font-['Brush_Script_MT'] text-3xl">David</span>
+              <span className="text-3xl" id="authorForeword">David Neo</span>
             </p>
           </div>
         </section>
