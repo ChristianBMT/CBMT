@@ -1,12 +1,6 @@
 "use client";
 
 import ImageCred from "@/components/image/ImageCred";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 
