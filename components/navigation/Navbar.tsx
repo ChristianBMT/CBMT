@@ -36,13 +36,6 @@ export default function Navbar() {
     setOpen(false);
   }
 
-  function contactUs() {
-    alert("FEATURE IN PROGRESS");
-    //   (window.location.href =
-    //     "mailto:christianbmt2827@gmail.com?subject=Christ in BMT Support&body=Hi,I found this website")
-    // )
-  }
-
   return (
     <Sheet open={open}>
       <SheetTrigger asChild>
@@ -109,9 +102,9 @@ export default function Navbar() {
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
-            onClick={() => contactUs()}
+            onClick={() => navigateTo(`/resources`)}
           >
-            Contact Us
+            Resources
           </Button>
           <div className="w-full mt-auto">
             <ThemeToggle></ThemeToggle>

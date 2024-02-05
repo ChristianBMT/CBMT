@@ -35,17 +35,17 @@ export default function Home() {
   return (
     <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] px-6 mb-6">
       <h1 className="font-bold text-3xl">Serving our Nation with Faith</h1>
-      <div className="flex gap-1 items-center mt-1">
-        <h6 className="font-semibold text-xl">Devotions for BMT</h6>
+      <div className="flex gap-1 items-center mt-1 justify-between">
+        <h6 className="font-semibold text-xl">Devotions for BMT</h6>{" "}
         <Button
           onClick={() => router.push("/foreword")}
-          variant={"ghost"}
-          size={"sm"}
-          className="text-xl"
+          variant={"outline"}
+          className="w-fit"
         >
-          <BsInfoCircle />
+          Foreword
         </Button>
       </div>
+
       <div className="relative my-5">
         <Image
           className="w-full rounded-lg shadow-xl aspect-[3/2] object-cover bg-gray-500/50"

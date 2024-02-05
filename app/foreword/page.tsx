@@ -18,7 +18,7 @@ export default function Foreword() {
   return (
     <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px]  py-2">
       <ImageCred
-        src={"/Foreword.jpeg"}
+        src={"/ranger.jpg"}
         author={"Anonymous"}
         className="w-full aspect-[3/2]"
       />
