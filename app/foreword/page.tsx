@@ -45,7 +45,7 @@ export default function Foreword() {
                     </Avatar>
                     <div className="space-y-1">
                       <h4 className="text-sm font-semibold">David Neo</h4>
-                      <p className="text-sm"></p>
+                      <p className="text-sm">A soldier in God's army</p>
                     </div>
                   </div>
                 </HoverCardContent>
@@ -106,7 +106,9 @@ export default function Foreword() {
             <p className="mt-3">
               In God&apos;s Army,
               <br />
-              <span className="text-3xl" id="authorForeword">David Neo</span>
+              <span className="text-3xl" id="authorForeword">
+                David Neo
+              </span>
             </p>
           </div>
         </section>
