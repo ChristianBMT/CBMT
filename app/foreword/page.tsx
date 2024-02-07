@@ -45,7 +45,7 @@ export default function Foreword() {
                     </Avatar>
                     <div className="space-y-1">
                       <h4 className="text-sm font-semibold">David Neo</h4>
-                      <p className="text-sm">A soldier in God's army</p>
+                      <p className="text-sm">A soldier in God&apos;s army</p>
                     </div>
                   </div>
                 </HoverCardContent>
@@ -82,7 +82,7 @@ export default function Foreword() {
               armour of God during your Basic Military Training. Over the past
               25 years, the Lord kept reminding me of this, but there was always
               something that kept me from doing it. There were always operations
-              to run, projects to complete, and soldiers to attend to.{" "}
+              to run, projects to complete, and soldiers to attend to.
             </p>
             <p>
               But we are all called to obey the Lord, and i am glad that while
