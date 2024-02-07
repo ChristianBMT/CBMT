@@ -8,3 +8,12 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@font-face {
+  font-family: "Brush Script MT";
+  src: url("/BrushScriptOpti-Regular.otf");
+}
+
+#authorForeword {
+  font-family: "Brush Script MT", cursive;
+}

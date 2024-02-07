@@ -88,9 +88,9 @@ export default function Navbar() {
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
-            onClick={() => navigateTo("/introduction")}
+            onClick={() => navigateTo("/foreword")}
           >
-            Introduction
+            Foreword
           </Button>
           <Button
             variant={"ghost"}
@@ -99,19 +99,12 @@ export default function Navbar() {
           >
             BMT Devotions
           </Button>
-          {/* <Button
-            variant={"ghost"}
-            className="w-full justify-start sm:justify-center"
-            onClick={() => navigateTo("/aboutus")}
-          >
-            About Us
-          </Button> */}
           <Button
             variant={"ghost"}
             className="w-full justify-start sm:justify-center"
-            onClick={() => navigateTo("/contact")}
+            onClick={() => navigateTo(`/resources`)}
           >
-            Contacts Us
+            Resources
           </Button>
           <div className="w-full mt-auto">
             <ThemeToggle></ThemeToggle>
