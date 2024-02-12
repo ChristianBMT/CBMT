@@ -236,9 +236,26 @@ export default function DevotionPage({ params }: DevotionPageParams) {
                 </p>
               </div>
               <div className="flex flex-col gap-2 mt-1">
-                {devotionObj?.content.split("  ").map((paragraph, idx) => (
-                  <p key={"DevotionParagraph" + idx}>{paragraph}</p>
-                ))}
+                {devotionObj?.content.split("  ").map((paragraph, idx) => {
+                  if (paragraph.includes("```")) {
+                    return (
+                      <div
+                        className="flex flex-col italic my-3 gap-1"
+                        key={"DevotionParagraph" + idx}
+                      >
+                        {paragraph
+                          .replaceAll("```", "")
+                          .split("\\r")
+                          .map((song, songIdx) => {
+                            return (
+                              <p key={"SongParagraph" + songIdx}>{song}</p>
+                            );
+                          })}
+                      </div>
+                    );
+                  }
+                  return <p key={"DevotionParagraph" + idx}>{paragraph}</p>;
+                })}
               </div>
             </section>
             {devotionObj?.prayer && (
