@@ -239,7 +239,10 @@ export default function DevotionPage({ params }: DevotionPageParams) {
                 {devotionObj?.content.split("  ").map((paragraph, idx) => {
                   if (paragraph.includes("```")) {
                     return (
-                      <div className="flex flex-col italic my-3 gap-1">
+                      <div
+                        className="flex flex-col italic my-3 gap-1"
+                        key={"DevotionParagraph" + idx}
+                      >
                         {paragraph
                           .replaceAll("```", "")
                           .split("\\r")
