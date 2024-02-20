@@ -16,7 +16,7 @@ export default function Foreword() {
 
   return (
     <main className="min-h-[calc(100dvh-48px)] flex flex-col mx-auto max-w-[500px] py-2 gap-5">
-      <div className="flex gap-2 items-center justify-center">
+      <div className="flex gap-2 items-center justify-center ">
         <Image
           src="/CBMT Mascot.png"
           alt=""
@@ -27,7 +27,10 @@ export default function Foreword() {
         />
       </div>
       <div className="p-2 pb-[1rem]">
-        <section className="p-2 flex flex-col gap-5">
+        <section className="p-2 flex flex-col gap-4">
+          <h1 className="font-semibold text-xl text-center underline underline-offset-2">
+            Resources
+          </h1>
           <div className="flex flex-col items-start">
             <span className="mr-auto">For feedback email:</span>
             <Button
@@ -39,8 +42,11 @@ export default function Foreword() {
             </Button>
           </div>
           <div>
-            Should you wish to speak to someone please contact SAF 24-hour
-            counselling hotline:{" "}
+            <span>
+              Should you wish to speak to someone please contact SAF 24-hour
+              counselling hotline:
+            </span>
+            &nbsp;
             <a
               href="tel:1800-278-0022"
               className="underline underline-offset-2"

@@ -106,6 +106,13 @@ export default function Navbar() {
           >
             Resources
           </Button>
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start sm:justify-center"
+            onClick={() => navigateTo(`/acknowledgements`)}
+          >
+            Acknowledgements
+          </Button>
           <div className="w-full mt-auto">
             <ThemeToggle></ThemeToggle>
           </div>
