@@ -41,8 +41,8 @@ export default function Acknowledgements() {
               vessels of honour to touch many lives.
             </span>
             <span>
-              Soh Hong Yu and Thaddeus Lee for building this website and
-              providing technical support.
+              Soh Hong Yu and Thaddeus Lee for building this website and for
+              providing us the experience.
             </span>
             <span>
               Min Lu, our volunteer editor, for making the inspired word more
