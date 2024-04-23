@@ -122,12 +122,12 @@ export async function PUT(req: Request, { params }: DevotionPageParams) {
 
     console.log(finalDevotion);
 
-    // const updateDevotion = await db.devotion.update({
-    //   where: {
-    //     id: params.devotionID,
-    //   },
-    //   data: { ...finalDevotion },
-    // });
+    const updateDevotion = await db.devotion.update({
+      where: {
+        id: params.devotionID,
+      },
+      data: { ...finalDevotion },
+    });
 
     return NextResponse.json({ message: "Data Updated" }, { status: 201 });
   } catch (error) {
