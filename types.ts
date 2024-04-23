@@ -4,7 +4,7 @@ export type Devotion = {
   author_about?: string;
   bible_verse?: string;
   content: string;
-  docs: string;
+  docs?: string;
   id: string;
   prayer?: string;
   title: string;
@@ -13,6 +13,16 @@ export type Devotion = {
   image: string;
   image_source: string;
   tag?: Tag[];
+  hide?: boolean;
 };
 
 export type Tag = { id: string; name: string };
+
+export type DevotionAudioBody = {
+  content: string;
+  author: string;
+  prayer?: string;
+  title: string;
+  verse_id?: string;
+  bible_verse?: string;
+};

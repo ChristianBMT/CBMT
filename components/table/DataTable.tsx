@@ -162,7 +162,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <div className="flex flex-col justify-center items-center py-4 w-full gap-2">
-        <div className="flex w-full max-w-sm items-center space-x-2 mr-auto">
+        <div className="flex w-full items-center space-x-2 mr-auto">
           <FaSearch className="w-5 h-5 flex items-center justify-center aspect-square m-1" />
           <Input
             placeholder="Filter titles..."

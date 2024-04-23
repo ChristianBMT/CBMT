@@ -9,6 +9,9 @@ export async function GET(req: Request) {
   try {
     const output: { [key: string]: Devotion[] } = {};
     const allDevotion: Devotion[] = await db.devotion.findMany({
+      where: {
+        hide: false,
+      },
       orderBy: [
         {
           title: "asc",
@@ -46,6 +49,20 @@ export async function GET(req: Request) {
       devotion["tag"] = allDevotionWithTag.map((e: { tag: Tag }) => e.tag);
     }
     return NextResponse.json(allDevotion);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    let body = await req.json();
+    console.log(body);
+    return NextResponse.json(body);
   } catch (error) {
     console.log(error);
     return NextResponse.json(

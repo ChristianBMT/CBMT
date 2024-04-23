@@ -24,10 +24,11 @@ model Devotion {
 
   audio_file String?
 
-  image String @default("/DailyImage.webp")
+  image        String @default("/DailyImage.webp")
   image_source String @default("Anonymous")
 
   weekNo       Int
+  hide         Boolean        @default(false)
   Week         Week           @relation(fields: [weekNo], references: [week])
   Devotion_Tag Devotion_Tag[]
 }

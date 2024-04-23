@@ -2,15 +2,7 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import { NextResponse } from "next/server";
 import { JWT } from "google-auth-library";
 import { db } from "@/lib/db";
-
-type DevotionAudioBody = {
-  content: string;
-  author: string;
-  prayer?: string;
-  title: string;
-  verse_id?: string;
-  bible_verse?: string;
-};
+import { DevotionAudioBody } from "@/types";
 
 function getDocsID(link: string): string {
   return link.split("/d/")[1].split("/edit")[0];

@@ -119,6 +119,10 @@ export default function AudioPlayer({ audio_file }: AudioPlayerProps) {
     }
   }
 
+  function resetAudio() {
+    setIsPlaying(false);
+  }
+
   return (
     <>
       <Button variant={"ghost"} onClick={() => playAudio()} ref={ref}>
@@ -170,6 +174,7 @@ export default function AudioPlayer({ audio_file }: AudioPlayerProps) {
                 }}
                 onDuration={handleDuration}
                 onProgress={handleProgress}
+                onEnded={resetAudio}
               />
             </div>
           )}
