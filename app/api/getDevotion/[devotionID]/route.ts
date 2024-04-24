@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 
-import { Devotion, Tag, DevotionAudioBody } from "@/types";
+import { Devotion, Tag, DevotionAudioBody, DevotionExcel } from "@/types";
 
 type DevotionPageParams = {
   params: {
@@ -26,21 +26,6 @@ export async function GET(req: Request, { params }: DevotionPageParams) {
     );
   }
 }
-
-export type DevotionExcel = {
-  id: string;
-  weekNo: number;
-  title: string;
-  author: string;
-  author_about?: string;
-  verse_id: string;
-  content: string;
-  prayer?: string;
-  image: string;
-  image_source: string;
-  bible_verse?: string;
-  audio_file?: string;
-};
 
 export async function PUT(req: Request, { params }: DevotionPageParams) {
   try {
@@ -130,7 +115,7 @@ export async function PUT(req: Request, { params }: DevotionPageParams) {
     });
 
     return NextResponse.json(
-      { message: "Data Updated", devotion: updateDevotion },
+      { message: "Devotion Updated", devotion: updateDevotion },
       { status: 201 }
     );
   } catch (error) {

@@ -26,3 +26,18 @@ export type DevotionAudioBody = {
   verse_id?: string;
   bible_verse?: string;
 };
+
+export type DevotionExcel = {
+  id: string;
+  weekNo: number;
+  title: string;
+  author: string;
+  author_about?: string;
+  verse_id: string;
+  content: string;
+  prayer?: string;
+  image: string;
+  image_source: string;
+  bible_verse?: string;
+  audio_file?: string;
+};
