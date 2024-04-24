@@ -129,7 +129,10 @@ export async function PUT(req: Request, { params }: DevotionPageParams) {
       data: { ...finalDevotion },
     });
 
-    return NextResponse.json({ message: "Data Updated" }, { status: 201 });
+    return NextResponse.json(
+      { message: "Data Updated", devotion: updateDevotion },
+      { status: 201 }
+    );
   } catch (error) {
     console.log(error);
     return NextResponse.json(
