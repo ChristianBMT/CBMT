@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 const ElevenLabs = require("elevenlabs-node");
-import * as fs from "fs";
-import path from "path";
 
 const voice = new ElevenLabs({
   apiKey: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY,
@@ -27,7 +25,6 @@ export async function POST(req: Request) {
       verse_id,
       bible_verse,
     }: DevotionAudioBody = await req.json();
-    const fileName = path.join(process.cwd(), "test.mp3");
     let speakString = `${title}
 By ${author}
 .
@@ -82,14 +79,16 @@ Let's Pray!
 ${prayer}`;
     }
 
-    const voiceResponse = await voice.textToSpeech({
-      fileName: fileName,
+    const voiceResponse = await voice.textToSpeechStream({
       textInput: speakString,
       stability: 0.4,
       similarityBoost: 0.8,
+      responseType: "json",
     });
 
-    if (voiceResponse.status != "ok") {
+    console.log(voiceResponse);
+
+    if (!voiceResponse) {
       return NextResponse.json(
         { message: "ElevenLabs Error" },
         { status: 500 }
@@ -108,10 +107,9 @@ ${prayer}`;
     );
 
     const historyData = await historyResponse.json();
+    console.log(historyData);
 
     let audioRecord = historyData.history[0]["history_item_id"];
-
-    fs.unlinkSync(fileName);
 
     return NextResponse.json(
       {
