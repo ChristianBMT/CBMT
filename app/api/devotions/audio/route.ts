@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 const ElevenLabs = require("elevenlabs-node");
 import * as fs from "fs";
+import path from "path";
 
 const voice = new ElevenLabs({
   apiKey: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY,
@@ -26,7 +27,7 @@ export async function POST(req: Request) {
       verse_id,
       bible_verse,
     }: DevotionAudioBody = await req.json();
-    const fileName = `./public/test.mp3`;
+    const fileName = path.join(process.cwd(), "test.mp3");
     let speakString = `${title}
 By ${author}
 .
