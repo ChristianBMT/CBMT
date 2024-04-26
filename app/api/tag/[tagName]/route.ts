@@ -45,7 +45,7 @@ export async function GET(req: Request, { params }: TagDevotionPageParams) {
 export async function DELETE(req: Request, { params }: TagDevotionPageParams) {
   try {
     let body = await req.json();
-    console.log(body);
+    console.log(body, params.tagName);
     const deleteTag = await db.tag.delete({
       where: {
         name: params.tagName
