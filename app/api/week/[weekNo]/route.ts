@@ -12,13 +12,13 @@ export async function PUT(req: Request, { params }: WeekParams) {
   try {
     let body: { name: string } = await req.json();
 
-    const updateWeek = await db.devotion.update({
+    const updateWeek = await db.week.update({
       where: {
-        id: params.weekNo,
+        week: parseInt(params.weekNo),
       },
       data: { ...body },
     });
-    
+
     return NextResponse.json(
       { message: "Week Updated", week: updateWeek },
       { status: 201 }

@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     console.log(body);
     let weekBody = body["weeks"];
     const newWeek = await db.week.createMany({
-      data: { ...weekBody },
+      data: weekBody,
       skipDuplicates: true,
     });
 
