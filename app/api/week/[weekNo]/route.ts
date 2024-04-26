@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 
 type WeekParams = {
   params: {
-    weekNo: number;
+    weekNo: string;
   };
 };
 
