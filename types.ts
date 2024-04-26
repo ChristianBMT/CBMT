@@ -4,7 +4,7 @@ export type Devotion = {
   author_about?: string;
   bible_verse?: string;
   content: string;
-  docs: string;
+  docs?: string;
   id: string;
   prayer?: string;
   title: string;
@@ -13,6 +13,41 @@ export type Devotion = {
   image: string;
   image_source: string;
   tag?: Tag[];
+  hide?: boolean;
 };
 
 export type Tag = { id: string; name: string };
+
+export type DevotionAudioBody = {
+  content: string;
+  author: string;
+  prayer?: string;
+  title: string;
+  verse_id?: string;
+  bible_verse?: string;
+};
+
+export type DevotionExcel = {
+  id: string;
+  weekNo: number;
+  title: string;
+  author: string;
+  author_about?: string;
+  verse_id: string;
+  content: string;
+  prayer?: string;
+  image: string;
+  image_source: string;
+  bible_verse?: string;
+  audio_file?: string;
+};
+
+export type WeekType = {
+  week: number;
+  name: string;
+};
+
+export type DevotionTag = {
+  tag_id: string;
+  devotion_id: string;
+};

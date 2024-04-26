@@ -41,3 +41,24 @@ export async function GET(req: Request, { params }: TagDevotionPageParams) {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
+
+export async function DELETE(req: Request, { params }: TagDevotionPageParams) {
+  try {
+    console.log(params.tagName);
+    const deleteTag = await db.tag.delete({
+      where: {
+        name: params.tagName,
+      },
+    });
+    return NextResponse.json(
+      { message: "Delete Successful!" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

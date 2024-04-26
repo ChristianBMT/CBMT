@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { Devotion } from "@/types";
-
-type Tag = { id: string; name: string };
+import { Devotion, Tag, DevotionTag } from "@/types";
 
 export async function GET(req: Request) {
   try {
@@ -43,6 +41,27 @@ export async function GET(req: Request) {
       );
     }
     return NextResponse.json(output);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    // Remove all then add all
+    await db.Devotion_Tag.deleteMany({});
+    let body: { tagDevotion: DevotionTag[] } = await req.json();
+    console.log(body);
+    let tagDevotionBody = body["tagDevotion"];
+    const createTagDevotion = await db.Devotion_Tag.createMany({
+      data: tagDevotionBody,
+      skipDuplicates: true,
+    });
+    return NextResponse.json(createTagDevotion);
   } catch (error) {
     console.log(error);
     return NextResponse.json(
