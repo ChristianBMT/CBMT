@@ -41,3 +41,8 @@ export type DevotionExcel = {
   bible_verse?: string;
   audio_file?: string;
 };
+
+export type WeekType = {
+  week: number;
+  name: string;
+};
