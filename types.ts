@@ -46,3 +46,8 @@ export type WeekType = {
   week: number;
   name: string;
 };
+
+export type DevotionTag = {
+  tag_id: string;
+  devotion_id: string;
+};

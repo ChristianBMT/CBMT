@@ -35,7 +35,10 @@ export async function DELETE(req: Request, { params }: DevotionPageParams) {
       },
       data: { hide: true },
     });
-    return NextResponse.json({ message: "Delete Successful!" }, { status: 200 });
+    return NextResponse.json(
+      { message: "Delete Successful!" },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error);
     return NextResponse.json(
