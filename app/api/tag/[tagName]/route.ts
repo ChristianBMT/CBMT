@@ -45,6 +45,16 @@ export async function GET(req: Request, { params }: TagDevotionPageParams) {
 export async function DELETE(req: Request, { params }: TagDevotionPageParams) {
   try {
     console.log(params.tagName);
+    const tag = await db.tag.findMany({
+      where: {
+        name: params.tagName,
+      },
+    });
+    await db.Devotion_Tag.deleteMany({
+      where: {
+        tag_id: tag[0].id,
+      },
+    });
     const deleteTag = await db.tag.delete({
       where: {
         name: params.tagName,
